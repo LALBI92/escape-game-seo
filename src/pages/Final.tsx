@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 
 const Final = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [showLetter, setShowLetter] = useState(false);
   const [time, setTime] = useState(() => {
     const savedTime = sessionStorage.getItem("gameTime");
@@ -30,12 +28,13 @@ const Final = () => {
     };
   }, [isRunning]);
 
+  // Vérification simple du paramètre URL au montage du composant
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    if (params.get("123") !== null) {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('123') !== null) {
       setShowLetter(true);
     }
-  }, [location.search]);
+  }, []);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
