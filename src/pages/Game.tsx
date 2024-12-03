@@ -5,9 +5,15 @@ import { DragAndDrop } from "@/components/DragAndDrop";
 
 const Game = () => {
   const navigate = useNavigate();
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(() => {
+    const savedTime = sessionStorage.getItem("gameTime");
+    return savedTime ? parseInt(savedTime, 10) : 0;
+  });
   const [isRunning, setIsRunning] = useState(true);
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(() => {
+    const savedStep = sessionStorage.getItem("currentStep");
+    return savedStep ? parseInt(savedStep, 10) : 1;
+  });
   const [answer, setAnswer] = useState("");
 
   useEffect(() => {
@@ -20,7 +26,11 @@ const Game = () => {
     let intervalId: ReturnType<typeof setInterval>;
     if (isRunning) {
       intervalId = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
+        setTime((prevTime) => {
+          const newTime = prevTime + 1;
+          sessionStorage.setItem("gameTime", newTime.toString());
+          return newTime;
+        });
       }, 1000);
     }
 
@@ -28,6 +38,10 @@ const Game = () => {
       if (intervalId) clearInterval(intervalId);
     };
   }, [isRunning, navigate]);
+
+  useEffect(() => {
+    sessionStorage.setItem("currentStep", currentStep.toString());
+  }, [currentStep]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -50,6 +64,7 @@ const Game = () => {
 
   const handleDragAndDropSuccess = () => {
     setIsRunning(false);
+    sessionStorage.setItem("gameTime", time.toString());
     toast.success("Félicitations ! Passons à l'étape suivante.");
     navigate("/n");
   };

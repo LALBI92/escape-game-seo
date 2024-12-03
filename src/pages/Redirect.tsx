@@ -5,7 +5,6 @@ const Redirect = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Simulate a 301 redirect
     navigate("/message", { replace: true });
   }, [navigate]);
 

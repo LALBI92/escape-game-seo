@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,6 +7,18 @@ import { toast } from "sonner";
 const Message = () => {
   const navigate = useNavigate();
   const [letter, setLetter] = useState("");
+  const [time, setTime] = useState(() => {
+    const savedTime = sessionStorage.getItem("gameTime");
+    return savedTime ? parseInt(savedTime, 10) : 0;
+  });
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,9 +30,20 @@ const Message = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate("/game");
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-4">
       <div className="max-w-4xl mx-auto">
+        <div className="glass-card rounded-2xl p-6 mb-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-bold">Défi SEO</h2>
+            <div className="text-xl font-mono">{formatTime(time)}</div>
+          </div>
+        </div>
+
         <div className="glass-card rounded-2xl p-8 space-y-8">
           <p className="text-xl text-center">
             En venant ici tu es passé par ailleurs mais l'as tu remarqué ?
@@ -45,7 +68,7 @@ const Message = () => {
           <div className="text-center">
             <Button
               variant="outline"
-              onClick={() => navigate(-1)}
+              onClick={handleBack}
               className="mt-4"
             >
               Retourner à la page précédente
