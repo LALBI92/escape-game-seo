@@ -49,9 +49,9 @@ const Game = () => {
   };
 
   const handleDragAndDropSuccess = () => {
-    setCurrentStep(3);
-    toast.success("Félicitations ! Vous avez réussi le jeu !");
     setIsRunning(false);
+    toast.success("Félicitations ! Passons à l'étape suivante.");
+    navigate("/n");
   };
 
   return (
@@ -136,17 +136,6 @@ const Game = () => {
             </div>
 
             <DragAndDrop onSuccess={handleDragAndDropSuccess} />
-          </div>
-        )}
-
-        {currentStep === 3 && (
-          <div className="glass-card rounded-2xl p-8 space-y-8 animate-fade-in">
-            <div className="text-center space-y-4">
-              <h3 className="text-2xl font-bold">Félicitations !</h3>
-              <p className="text-gray-600">
-                Vous avez terminé le jeu en {formatTime(time)} !
-              </p>
-            </div>
           </div>
         )}
       </div>
