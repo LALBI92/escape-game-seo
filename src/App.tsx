@@ -9,6 +9,7 @@ import Message from "./pages/Message";
 import Redirect from "./pages/Redirect";
 import Final from "./pages/Final";
 import Success from "./pages/Success";
+import Leaderboard from "./pages/Leaderboard";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/n" element={<Redirect />} />
           <Route path="/final" element={<Final />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

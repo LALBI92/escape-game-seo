@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const Success = () => {
+  const navigate = useNavigate();
   const [letters, setLetters] = useState(["", "", ""]);
   const [time, setTime] = useState(() => {
     const savedTime = sessionStorage.getItem("gameTime");
@@ -41,7 +43,10 @@ const Success = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Lettres soumises:", letters.join(""));
+    const code = letters.join("");
+    if (code === "PBN") {
+      navigate("/leaderboard");
+    }
   };
 
   return (
@@ -63,12 +68,15 @@ const Success = () => {
                   maxLength={1}
                   value={letter}
                   onChange={(e) => handleLetterChange(index, e.target.value)}
-                  className="w-16 h-16 text-center text-2xl text-black bg-black border-white"
+                  className="w-16 h-16 text-center text-2xl text-black bg-black border-black focus:border-black focus-visible:ring-0"
                 />
               ))}
             </div>
             
-            <Button type="submit" className="w-full bg-black text-black border-white">
+            <Button 
+              type="submit" 
+              className="w-full bg-black text-black border-black hover:bg-black hover:text-black hover:border-black"
+            >
               Valider
             </Button>
           </form>
