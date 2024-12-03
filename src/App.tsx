@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Game from "./pages/Game";
 import Message from "./pages/Message";
 import Redirect from "./pages/Redirect";
+import Final from "./pages/Final";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/game" element={<Game />} />
           <Route path="/message" element={<Message />} />
           <Route path="/n" element={<Redirect />} />
+          <Route path="/final" element={<Final />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
