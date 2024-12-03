@@ -8,6 +8,7 @@ import Game from "./pages/Game";
 import Message from "./pages/Message";
 import Redirect from "./pages/Redirect";
 import Final from "./pages/Final";
+import Success from "./pages/Success";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/message" element={<Message />} />
           <Route path="/n" element={<Redirect />} />
           <Route path="/final" element={<Final />} />
+          <Route path="/success" element={<Success />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
