@@ -81,18 +81,9 @@ const Game = () => {
 
         {currentStep === 1 && (
           <div className="glass-card rounded-2xl p-8 space-y-8 animate-fade-in">
-            <div className="space-y-4">
-              <span className="inline-block px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">
-                Étape 1
-              </span>
-              <h3 className="text-xl font-semibold">
-                Trouvez la lettre cachée dans le code source
-              </h3>
-              <p className="text-gray-600">
-                Votre premier défi est d'inspecter le code source de cette page.
-                Une lettre est cachée quelque part dans les commentaires HTML.
-              </p>
-            </div>
+            <p className="text-lg text-center text-gray-700 italic">
+              Il faut savoir lire entre les lignes...
+            </p>
 
             {/* 
     
@@ -110,12 +101,6 @@ const Game = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label
-                  htmlFor="answer"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Entrez la lettre cachée :
-                </label>
                 <input
                   type="text"
                   id="answer"
@@ -123,33 +108,21 @@ const Game = () => {
                   onChange={(e) => setAnswer(e.target.value)}
                   maxLength={1}
                   className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
-                  placeholder="Entrez la lettre ici"
+                  placeholder="Votre réponse..."
                 />
               </div>
               <button
                 type="submit"
                 className="w-full px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
               >
-                Valider la réponse
+                Valider
               </button>
             </form>
           </div>
         )}
 
         {currentStep === 2 && (
-          <div className="glass-card rounded-2xl p-8 space-y-8 animate-fade-in">
-            <div className="space-y-4">
-              <span className="inline-block px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">
-                Étape 2
-              </span>
-              <h3 className="text-xl font-semibold">
-                Association d'images et de dates
-              </h3>
-              <p className="text-gray-600">
-                Glissez et déposez les images sur les bonnes dates. Chaque image correspond à un événement majeur du web.
-              </p>
-            </div>
-
+          <div className="glass-card rounded-2xl p-8 animate-fade-in">
             <DragAndDrop onSuccess={handleDragAndDropSuccess} />
           </div>
         )}
