@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { DragAndDrop } from "@/components/DragAndDrop";
 
 const Game = () => {
   const navigate = useNavigate();
@@ -47,6 +48,12 @@ const Game = () => {
     }
   };
 
+  const handleDragAndDropSuccess = () => {
+    setCurrentStep(3);
+    toast.success("Félicitations ! Vous avez réussi le jeu !");
+    setIsRunning(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-4">
       <div className="max-w-4xl mx-auto">
@@ -58,7 +65,7 @@ const Game = () => {
         </div>
 
         {currentStep === 1 && (
-          <div className="glass-card rounded-2xl p-8 space-y-8 fade-in">
+          <div className="glass-card rounded-2xl p-8 space-y-8 animate-fade-in">
             <div className="space-y-4">
               <span className="inline-block px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">
                 Étape 1
@@ -115,7 +122,7 @@ const Game = () => {
         )}
 
         {currentStep === 2 && (
-          <div className="glass-card rounded-2xl p-8 space-y-8 fade-in">
+          <div className="glass-card rounded-2xl p-8 space-y-8 animate-fade-in">
             <div className="space-y-4">
               <span className="inline-block px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">
                 Étape 2
@@ -128,42 +135,17 @@ const Game = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <h4 className="font-medium">Images à placer :</h4>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="aspect-square bg-gray-200 rounded-lg p-2 cursor-move" draggable="true">
-                    Image 1
-                  </div>
-                  <div className="aspect-square bg-gray-200 rounded-lg p-2 cursor-move" draggable="true">
-                    Image 2
-                  </div>
-                  <div className="aspect-square bg-gray-200 rounded-lg p-2 cursor-move" draggable="true">
-                    Image 3
-                  </div>
-                  <div className="aspect-square bg-gray-200 rounded-lg p-2 cursor-move" draggable="true">
-                    Image 4
-                  </div>
-                </div>
-              </div>
+            <DragAndDrop onSuccess={handleDragAndDropSuccess} />
+          </div>
+        )}
 
-              <div className="space-y-4">
-                <h4 className="font-medium">Dates :</h4>
-                <div className="grid gap-4">
-                  <div className="h-24 border-2 border-dashed border-gray-300 rounded-lg p-2 flex items-center justify-center">
-                    1998
-                  </div>
-                  <div className="h-24 border-2 border-dashed border-gray-300 rounded-lg p-2 flex items-center justify-center">
-                    2005
-                  </div>
-                  <div className="h-24 border-2 border-dashed border-gray-300 rounded-lg p-2 flex items-center justify-center">
-                    2018
-                  </div>
-                  <div className="h-24 border-2 border-dashed border-gray-300 rounded-lg p-2 flex items-center justify-center">
-                    2021
-                  </div>
-                </div>
-              </div>
+        {currentStep === 3 && (
+          <div className="glass-card rounded-2xl p-8 space-y-8 animate-fade-in">
+            <div className="text-center space-y-4">
+              <h3 className="text-2xl font-bold">Félicitations !</h3>
+              <p className="text-gray-600">
+                Vous avez terminé le jeu en {formatTime(time)} !
+              </p>
             </div>
           </div>
         )}

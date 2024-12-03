@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from './ui/button';
 
 interface DragAndDropProps {
   onSuccess: () => void;
@@ -6,31 +7,39 @@ interface DragAndDropProps {
 
 export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
   const [matches, setMatches] = useState<Record<string, string>>({});
+  const [isCorrect, setIsCorrect] = useState(false);
+
+  const animals = [
+    { id: 'panda', year: '2011', image: 'https://source.unsplash.com/random/?panda' },
+    { id: 'pingouin', year: '2012', image: 'https://source.unsplash.com/random/?penguin' },
+    { id: 'colibri', year: '2013', image: 'https://source.unsplash.com/random/?hummingbird' },
+    { id: 'pigeon', year: '2014', image: 'https://source.unsplash.com/random/?pigeon' }
+  ];
 
   const handleDragStart = (e: React.DragEvent, imageId: string) => {
     e.dataTransfer.setData('imageId', imageId);
   };
 
-  const handleDrop = (e: React.DragEvent, date: string) => {
+  const handleDrop = (e: React.DragEvent, year: string) => {
     e.preventDefault();
     const imageId = e.dataTransfer.getData('imageId');
     
     setMatches(prev => ({
       ...prev,
-      [imageId]: date
+      [imageId]: year
     }));
 
     // Vérifier si toutes les correspondances sont correctes
-    const correctMatches = {
-      'image1': '2021',
-      'image2': '2018',
-      'image3': '1998',
-      'image4': '2005'
+    const newMatches = {
+      ...matches,
+      [imageId]: year
     };
 
-    if (Object.entries(matches).every(([key, value]) => correctMatches[key as keyof typeof correctMatches] === value)) {
-      onSuccess();
-    }
+    const allCorrect = animals.every(animal => 
+      newMatches[animal.id] === animal.year
+    );
+
+    setIsCorrect(allCorrect);
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -38,8 +47,60 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-8">
-      {/* ... Le contenu sera ajouté dans la prochaine itération */}
+    <div className="space-y-8">
+      <div className="grid grid-cols-2 gap-8">
+        <div className="space-y-4">
+          <h4 className="font-medium">Images à placer :</h4>
+          <div className="grid grid-cols-2 gap-4">
+            {animals.map((animal) => (
+              <div
+                key={animal.id}
+                draggable
+                onDragStart={(e) => handleDragStart(e, animal.id)}
+                className="aspect-square bg-white rounded-lg shadow-md overflow-hidden cursor-move hover:shadow-lg transition-shadow"
+              >
+                <img
+                  src={animal.image}
+                  alt={animal.id}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <h4 className="font-medium">Années :</h4>
+          <div className="grid gap-4">
+            {animals.map((animal) => (
+              <div
+                key={animal.year}
+                onDrop={(e) => handleDrop(e, animal.year)}
+                onDragOver={handleDragOver}
+                className={`h-24 border-2 ${
+                  matches[animal.id] === animal.year
+                    ? 'border-green-500 bg-green-50'
+                    : 'border-dashed border-gray-300'
+                } rounded-lg p-2 flex items-center justify-center transition-colors`}
+              >
+                {animal.year}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-center">
+        <Button
+          onClick={onSuccess}
+          disabled={!isCorrect}
+          className={`transition-all ${
+            isCorrect ? 'animate-fade-in' : 'opacity-50'
+          }`}
+        >
+          Continuer
+        </Button>
+      </div>
     </div>
   );
 };
