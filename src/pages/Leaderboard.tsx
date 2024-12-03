@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Share2, Twitter, Linkedin, MessageCircle } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Leaderboard = () => {
   const navigate = useNavigate();
@@ -16,11 +17,30 @@ const Leaderboard = () => {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
+  // Exemple avec plus d'entrées pour démontrer le défilement
   const leaderboard = [
     { pseudo: "Alice", time: 180 },
     { pseudo: "Bob", time: 240 },
     { pseudo: "Charlie", time: 300 },
+    { pseudo: "David", time: 320 },
+    { pseudo: "Eva", time: 340 },
+    { pseudo: "Frank", time: 360 },
+    { pseudo: "Grace", time: 380 },
+    { pseudo: "Henry", time: 400 },
   ];
+
+  const getPositionEmoji = (position: number) => {
+    switch (position) {
+      case 0:
+        return "🥇";
+      case 1:
+        return "🥈";
+      case 2:
+        return "🥉";
+      default:
+        return "🎮";
+    }
+  };
 
   const shareText = "Je viens de terminer l'Escape Game SEO ! Un super défi technique, essayez-le vous aussi !";
   const shareUrl = window.location.origin;
@@ -39,37 +59,22 @@ const Leaderboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white p-4">
-      <div className="max-w-2xl mx-auto pt-20 space-y-12">
+      <div className="max-w-2xl mx-auto pt-20 space-y-8">
         <div className="text-center space-y-6 fade-in">
-          <h1 className="text-4xl font-bold">Félicitations !</h1>
+          <h1 className="text-4xl font-bold">Félicitations ! 🎉</h1>
           <p className="text-2xl text-purple-200">
             Votre temps : {formatTime(finalTime)}
           </p>
         </div>
-        
-        <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md">
-          <h2 className="text-2xl font-semibold text-center mb-6">Classement</h2>
-          <div className="space-y-4">
-            {leaderboard.map((entry, index) => (
-              <div 
-                key={index} 
-                className="flex justify-between items-center p-4 glass-card rounded-lg hover-scale"
-              >
-                <span className="text-lg">{entry.pseudo}</span>
-                <span className="text-lg">{formatTime(entry.time)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
 
         <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md text-center">
-          <h2 className="text-2xl font-semibold">Partagez votre expérience !</h2>
+          <h2 className="text-2xl font-semibold">Partagez votre expérience ! 🌟</h2>
           <p className="text-purple-200">
             Si vous avez aimé cet escape game, partagez-le avec vos amis et collègues.
             Cela nous encouragera à en créer d'autres !
           </p>
           
-          <div className="flex justify-center gap-4 pt-4">
+          <div className="flex justify-center gap-4">
             <Button
               onClick={shareOnTwitter}
               variant="outline"
@@ -95,6 +100,26 @@ const Leaderboard = () => {
               WhatsApp
             </Button>
           </div>
+        </div>
+        
+        <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md">
+          <h2 className="text-2xl font-semibold text-center mb-6">Classement 🏆</h2>
+          <ScrollArea className="h-[400px] pr-4">
+            <div className="space-y-4">
+              {leaderboard.map((entry, index) => (
+                <div 
+                  key={index} 
+                  className="flex justify-between items-center p-4 glass-card rounded-lg hover-scale"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">{getPositionEmoji(index)}</span>
+                    <span className="text-lg">{entry.pseudo}</span>
+                  </div>
+                  <span className="text-lg">{formatTime(entry.time)}</span>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
         </div>
       </div>
     </div>
