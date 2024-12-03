@@ -8,23 +8,21 @@ const Game = () => {
   const [isRunning, setIsRunning] = useState(true);
 
   useEffect(() => {
-    // Check if player info exists
     const player = localStorage.getItem("player");
     if (!player) {
       navigate("/");
       return;
     }
 
-    // Start timer
-    let interval: number;
+    let intervalId: ReturnType<typeof setInterval>;
     if (isRunning) {
-      interval = setInterval(() => {
+      intervalId = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
     }
 
     return () => {
-      if (interval) clearInterval(interval);
+      if (intervalId) clearInterval(intervalId);
     };
   }, [isRunning, navigate]);
 
@@ -41,7 +39,7 @@ const Game = () => {
       <div className="max-w-4xl mx-auto">
         <div className="glass-card rounded-2xl p-6 mb-4">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold">SEO Challenge</h2>
+            <h2 className="text-2xl font-bold">Défi SEO</h2>
             <div className="text-xl font-mono">{formatTime(time)}</div>
           </div>
         </div>
@@ -49,19 +47,18 @@ const Game = () => {
         <div className="glass-card rounded-2xl p-8 space-y-8 fade-in">
           <div className="space-y-4">
             <span className="inline-block px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">
-              Stage 1
+              Étape 1
             </span>
             <h3 className="text-xl font-semibold">
-              Find the Hidden Letter in Source Code
+              Trouvez la lettre cachée dans le code source
             </h3>
             <p className="text-gray-600">
-              Your first challenge is to inspect the source code of this page.
-              There's a letter hidden somewhere in the HTML comments.
+              Votre premier défi est d'inspecter le code source de cette page.
+              Une lettre est cachée quelque part dans les commentaires HTML.
             </p>
           </div>
 
-          {/* Hidden letter in comment */}
-          {/* The first letter is A */}
+          {/* La première lettre est A */}
 
           <form className="space-y-4">
             <div>
@@ -69,21 +66,21 @@ const Game = () => {
                 htmlFor="answer"
                 className="block text-sm font-medium text-gray-700"
               >
-                Enter the hidden letter:
+                Entrez la lettre cachée :
               </label>
               <input
                 type="text"
                 id="answer"
                 maxLength={1}
                 className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
-                placeholder="Enter letter here"
+                placeholder="Entrez la lettre ici"
               />
             </div>
             <button
               type="submit"
               className="neo-button w-full text-gray-900 font-medium"
             >
-              Submit Answer
+              Valider la réponse
             </button>
           </form>
         </div>
