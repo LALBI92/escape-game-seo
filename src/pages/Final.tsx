@@ -31,7 +31,8 @@ const Final = () => {
   }, [isRunning]);
 
   useEffect(() => {
-    if (searchParams.get("123")) {
+    // Vérifie si le paramètre "123" est présent dans l'URL
+    if (searchParams.has("123")) {
       setShowLetter(true);
     }
   }, [searchParams]);
