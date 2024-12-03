@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 const LeaderboardBanner = () => {
   const [position, setPosition] = useState(0);
   
-  // Exemple de données de classement
+  // Données de classement avec positions
   const leaderboard = [
-    { name: "Alice", time: "02:15" },
-    { name: "Bob", time: "02:45" },
-    { name: "Charlie", time: "03:10" },
-    { name: "David", time: "03:30" },
-    { name: "Eva", time: "03:45" },
+    { position: "1er", name: "Eva", time: "03:45" },
+    { position: "2ème", name: "Bob", time: "04:32" },
+    { position: "3ème", name: "Charlie", time: "05:10" },
+    { position: "4ème", name: "David", time: "05:45" },
+    { position: "5ème", name: "Alice", time: "06:15" },
   ];
 
   const content = leaderboard.map(player => 
-    `${player.name}: ${player.time}`
+    `${player.position} : ${player.name} en ${player.time}`
   ).join(" • ");
 
   useEffect(() => {
@@ -25,9 +25,9 @@ const LeaderboardBanner = () => {
   }, [content.length]);
 
   return (
-    <div className="w-full bg-gradient-to-r from-purple-900 to-purple-700 text-white py-2 overflow-hidden">
+    <div className="w-full bg-amber-400 text-gray-900 py-3 overflow-hidden font-medium">
       <div 
-        className="whitespace-nowrap"
+        className="whitespace-nowrap text-lg"
         style={{ 
           transform: `translateX(${position}px)`,
           display: "inline-block"
