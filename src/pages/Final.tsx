@@ -1,51 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const Final = () => {
   const navigate = useNavigate();
-  const [showLetter, setShowLetter] = useState(false);
   const [time, setTime] = useState(() => {
     const savedTime = sessionStorage.getItem("gameTime");
     return savedTime ? parseInt(savedTime, 10) : 0;
   });
-  const [isRunning] = useState(true);
 
-  // Gestion du chronomètre
-  useEffect(() => {
-    let intervalId: ReturnType<typeof setInterval>;
-    if (isRunning) {
-      intervalId = setInterval(() => {
-        setTime((prevTime) => {
-          const newTime = prevTime + 1;
-          sessionStorage.setItem("gameTime", newTime.toString());
-          return newTime;
-        });
-      }, 1000);
-    }
-
-    return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [isRunning]);
-
-  // Vérification du paramètre dans l'URL au montage du composant
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has("123")) {
-      setShowLetter(true);
-    }
-  }, []);
+  const handleNext = () => {
+    navigate("/success");
+  };
 
   // Formatage du temps pour l'affichage
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-  };
-
-  const handleNext = () => {
-    navigate("/success");
   };
 
   return (
@@ -70,15 +42,12 @@ const Final = () => {
             </div>
           </div>
 
-          {/* Affichage conditionnel basé sur le paramètre URL */}
-          {showLetter && (
-            <div className="text-center space-y-4">
-              <p className="text-2xl font-bold">La lettre est : P</p>
-              <Button onClick={handleNext} className="w-full">
-                Passer à l'étape suivante
-              </Button>
-            </div>
-          )}
+          <div className="text-center space-y-4">
+            <p className="text-2xl font-bold">La lettre est : P</p>
+            <Button onClick={handleNext} className="w-full">
+              Passer à l'étape suivante
+            </Button>
+          </div>
         </div>
       </div>
     </div>
