@@ -25,7 +25,7 @@ const LeaderboardBanner = () => {
   }, [content.length]);
 
   return (
-    <div className="w-full bg-amber-400 text-gray-900 py-3 overflow-hidden font-medium">
+    <div className="mt-8 w-full bg-amber-400 text-gray-900 py-3 overflow-hidden font-medium">
       <div 
         className="whitespace-nowrap text-lg"
         style={{ 

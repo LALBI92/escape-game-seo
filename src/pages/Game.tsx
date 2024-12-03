@@ -82,8 +82,15 @@ const Game = () => {
         {currentStep === 1 && (
           <div className="glass-card rounded-2xl p-8 space-y-8 animate-fade-in">
             <div className="space-y-4">
+              <span className="inline-block px-3 py-1 bg-gray-100 rounded-full text-sm font-medium">
+                Étape 1
+              </span>
+              <h3 className="text-xl font-semibold">
+                Trouvez la lettre cachée dans le code source
+              </h3>
               <p className="text-gray-600">
-                Il faut parfois savoir lire entre les lignes
+                Votre premier défi est d'inspecter le code source de cette page.
+                Une lettre est cachée quelque part dans les commentaires HTML.
               </p>
             </div>
 
