@@ -41,7 +41,6 @@ const Success = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // La logique de validation sera ajoutée plus tard
     console.log("Lettres soumises:", letters.join(""));
   };
 
