@@ -68,14 +68,14 @@ const Success = () => {
                   maxLength={1}
                   value={letter}
                   onChange={(e) => handleLetterChange(index, e.target.value)}
-                  className="w-16 h-16 text-center text-2xl text-black bg-black border-black focus:border-black focus-visible:ring-0"
+                  className="w-16 h-16 text-center text-2xl text-black bg-black border-black focus:border-black focus-visible:ring-0 focus:outline-none cursor-default"
                 />
               ))}
             </div>
             
             <Button 
               type="submit" 
-              className="w-full bg-black text-black border-black hover:bg-black hover:text-black hover:border-black"
+              className="w-full bg-black text-black border-black hover:bg-black hover:text-black hover:border-black cursor-default"
             >
               Valider
             </Button>
