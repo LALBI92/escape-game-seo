@@ -29,6 +29,17 @@ const Leaderboard = () => {
     { pseudo: "Henry", time: 400 },
   ];
 
+  // Calculer la position du participant
+  const getParticipantPosition = () => {
+    let position = 1;
+    for (const entry of leaderboard) {
+      if (finalTime > entry.time) {
+        position++;
+      }
+    }
+    return position;
+  };
+
   const getPositionEmoji = (position: number) => {
     switch (position) {
       case 0:
@@ -40,6 +51,10 @@ const Leaderboard = () => {
       default:
         return "🎮";
     }
+  };
+
+  const getOrdinalNumber = (n: number) => {
+    return n + (n === 1 ? "er" : "ème");
   };
 
   const shareText = "Je viens de terminer l'Escape Game SEO ! Un super défi technique, essayez-le vous aussi !";
@@ -57,6 +72,8 @@ const Leaderboard = () => {
     window.open(`https://wa.me/?text=${encodeURIComponent(shareText + " " + shareUrl)}`, "_blank");
   };
 
+  const participantPosition = getParticipantPosition();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white p-4">
       <div className="max-w-2xl mx-auto pt-20 space-y-8">
@@ -64,6 +81,9 @@ const Leaderboard = () => {
           <h1 className="text-4xl font-bold">Félicitations ! 🎉</h1>
           <p className="text-2xl text-purple-200">
             Votre temps : {formatTime(finalTime)}
+          </p>
+          <p className="text-xl text-amber-400 font-semibold">
+            Vous êtes {getOrdinalNumber(participantPosition)} {getPositionEmoji(participantPosition - 1)}
           </p>
         </div>
 
