@@ -78,9 +78,7 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
                 onDrop={(e) => handleDrop(e, animal.year)}
                 onDragOver={handleDragOver}
                 className={`h-24 border-2 ${
-                  matches[animal.id] === animal.year
-                    ? 'border-green-500 bg-green-50'
-                    : 'border-dashed border-gray-300'
+                  isCorrect ? 'border-green-500 bg-green-50' : 'border-dashed border-gray-300'
                 } rounded-lg p-2 flex items-center justify-center transition-colors`}
               >
                 {animal.year}
