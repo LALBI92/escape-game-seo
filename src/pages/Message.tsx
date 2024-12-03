@@ -11,6 +11,24 @@ const Message = () => {
     const savedTime = sessionStorage.getItem("gameTime");
     return savedTime ? parseInt(savedTime, 10) : 0;
   });
+  const [isRunning] = useState(true);
+
+  useEffect(() => {
+    let intervalId: ReturnType<typeof setInterval>;
+    if (isRunning) {
+      intervalId = setInterval(() => {
+        setTime((prevTime) => {
+          const newTime = prevTime + 1;
+          sessionStorage.setItem("gameTime", newTime.toString());
+          return newTime;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [isRunning]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -66,11 +84,7 @@ const Message = () => {
           </form>
 
           <div className="text-center">
-            <Button
-              variant="outline"
-              onClick={handleBack}
-              className="mt-4"
-            >
+            <Button variant="outline" onClick={handleBack} className="mt-4">
               Retourner à la page précédente
             </Button>
           </div>

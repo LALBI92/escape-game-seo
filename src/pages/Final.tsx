@@ -11,6 +11,24 @@ const Final = () => {
     const savedTime = sessionStorage.getItem("gameTime");
     return savedTime ? parseInt(savedTime, 10) : 0;
   });
+  const [isRunning] = useState(true);
+
+  useEffect(() => {
+    let intervalId: ReturnType<typeof setInterval>;
+    if (isRunning) {
+      intervalId = setInterval(() => {
+        setTime((prevTime) => {
+          const newTime = prevTime + 1;
+          sessionStorage.setItem("gameTime", newTime.toString());
+          return newTime;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [isRunning]);
 
   useEffect(() => {
     if (searchParams.get("123")) {
