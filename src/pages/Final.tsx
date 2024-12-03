@@ -11,6 +11,7 @@ const Final = () => {
   });
   const [isRunning] = useState(true);
 
+  // Gestion du chronomètre
   useEffect(() => {
     let intervalId: ReturnType<typeof setInterval>;
     if (isRunning) {
@@ -28,14 +29,15 @@ const Final = () => {
     };
   }, [isRunning]);
 
-  // Vérification simple du paramètre URL au montage du composant
+  // Vérification du paramètre dans l'URL au montage du composant
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('123') !== null) {
+    if (urlParams.has("123")) {
       setShowLetter(true);
     }
   }, []);
 
+  // Formatage du temps pour l'affichage
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -68,6 +70,7 @@ const Final = () => {
             </div>
           </div>
 
+          {/* Affichage conditionnel basé sur le paramètre URL */}
           {showLetter && (
             <div className="text-center space-y-4">
               <p className="text-2xl font-bold">La lettre est : P</p>
