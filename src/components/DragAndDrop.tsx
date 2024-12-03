@@ -29,7 +29,6 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
       [imageId]: year
     }));
 
-    // Vérifier si toutes les correspondances sont correctes
     const newMatches = {
       ...matches,
       [imageId]: year
@@ -49,42 +48,36 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-2 gap-8">
-        <div className="space-y-4">
-          <h4 className="font-medium">Images à placer :</h4>
-          <div className="grid grid-cols-2 gap-4">
-            {animals.map((animal) => (
-              <div
-                key={animal.id}
-                draggable
-                onDragStart={(e) => handleDragStart(e, animal.id)}
-                className="aspect-square bg-white rounded-lg shadow-md overflow-hidden cursor-move hover:shadow-lg transition-shadow"
-              >
-                <img
-                  src={animal.image}
-                  alt={animal.id}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-2 gap-4">
+          {animals.map((animal) => (
+            <div
+              key={animal.id}
+              draggable
+              onDragStart={(e) => handleDragStart(e, animal.id)}
+              className="aspect-square bg-white rounded-lg shadow-md overflow-hidden cursor-move hover:shadow-lg transition-shadow"
+            >
+              <img
+                src={animal.image}
+                alt={animal.id}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
         </div>
 
-        <div className="space-y-4">
-          <h4 className="font-medium">Années :</h4>
-          <div className="grid gap-4">
-            {animals.map((animal) => (
-              <div
-                key={animal.year}
-                onDrop={(e) => handleDrop(e, animal.year)}
-                onDragOver={handleDragOver}
-                className={`h-24 border-2 ${
-                  isCorrect ? 'border-green-500 bg-green-50' : 'border-dashed border-gray-300'
-                } rounded-lg p-2 flex items-center justify-center transition-colors`}
-              >
-                {animal.year}
-              </div>
-            ))}
-          </div>
+        <div className="grid gap-4">
+          {animals.map((animal) => (
+            <div
+              key={animal.year}
+              onDrop={(e) => handleDrop(e, animal.year)}
+              onDragOver={handleDragOver}
+              className={`h-24 border-2 ${
+                isCorrect ? 'border-green-500 bg-green-50' : 'border-dashed border-gray-300'
+              } rounded-lg p-2 flex items-center justify-center transition-colors`}
+            >
+              {animal.year}
+            </div>
+          ))}
         </div>
       </div>
 
