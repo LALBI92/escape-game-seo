@@ -49,6 +49,8 @@ const Success = () => {
     }
   };
 
+  const allLettersFilled = letters.every(letter => letter !== "");
+
   return (
     <div className="min-h-screen bg-black text-white p-4">
       <div className="max-w-md mx-auto">
@@ -58,6 +60,7 @@ const Success = () => {
         
         <div className="pt-20">
           <p className="text-center mb-12 text-2xl">Quelqu'un peut allumer la lumière ?</p>
+          <p className="text-center mb-12 text-black">Souvent délaissé par facilité ou manque de temps, il est à notre sens indispensable et très efficace</p>
           
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="flex justify-center gap-4">
@@ -68,17 +71,19 @@ const Success = () => {
                   maxLength={1}
                   value={letter}
                   onChange={(e) => handleLetterChange(index, e.target.value)}
-                  className="w-16 h-16 text-center text-2xl text-black bg-black border-black focus:border-black focus-visible:ring-0 focus:outline-none cursor-default"
+                  className="w-16 h-16 text-center text-2xl text-white bg-black border-black focus:border-black focus-visible:ring-0 focus:outline-none cursor-default focus:ring-0 ring-0 focus:ring-offset-0"
                 />
               ))}
             </div>
             
-            <Button 
-              type="submit" 
-              className="w-full bg-black text-black border-black hover:bg-black hover:text-black hover:border-black cursor-default"
-            >
-              Valider
-            </Button>
+            {allLettersFilled && (
+              <Button 
+                type="submit" 
+                className="w-full bg-black text-black border-black hover:bg-black hover:text-black hover:border-black cursor-default"
+              >
+                Valider
+              </Button>
+            )}
           </form>
         </div>
       </div>
