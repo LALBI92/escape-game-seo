@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -6,34 +6,6 @@ import { Button } from "@/components/ui/button";
 const Success = () => {
   const navigate = useNavigate();
   const [letters, setLetters] = useState(["", "", ""]);
-  const [time, setTime] = useState(() => {
-    const savedTime = sessionStorage.getItem("gameTime");
-    return savedTime ? parseInt(savedTime, 10) : 0;
-  });
-  const [isRunning] = useState(true);
-
-  useEffect(() => {
-    let intervalId: ReturnType<typeof setInterval>;
-    if (isRunning) {
-      intervalId = setInterval(() => {
-        setTime((prevTime) => {
-          const newTime = prevTime + 1;
-          sessionStorage.setItem("gameTime", newTime.toString());
-          return newTime;
-        });
-      }, 1000);
-    }
-
-    return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [isRunning]);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-  };
 
   const handleLetterChange = (index: number, value: string) => {
     const newLetters = [...letters];
@@ -54,10 +26,6 @@ const Success = () => {
   return (
     <div className="min-h-screen bg-black text-white p-4">
       <div className="max-w-md mx-auto">
-        <div className="text-right mb-4">
-          <div className="text-xl font-mono">{formatTime(time)}</div>
-        </div>
-        
         <div className="pt-20">
           <p className="text-center mb-12 text-2xl">Quelqu'un peut allumer la lumière ?</p>
           <p className="text-center mb-12 text-black">Souvent délaissé par facilité ou manque de temps, il est à notre sens indispensable et très efficace</p>
@@ -79,9 +47,9 @@ const Success = () => {
             {allLettersFilled && (
               <Button 
                 type="submit" 
-                className="w-full bg-black text-black border-black hover:bg-black hover:text-black hover:border-black cursor-default"
+                className="w-full bg-white text-black hover:bg-gray-200 transition-colors"
               >
-                Valider
+                Valider le mot secret
               </Button>
             )}
           </form>
