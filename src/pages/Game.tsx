@@ -58,7 +58,19 @@ const Game = () => {
             </p>
           </div>
 
-          {/* La première lettre est A */}
+          {/* 
+    
+           #####     
+          #     #    
+         #       #   
+         #       #   
+         #       #   
+          #     #    
+           #####     
+                     
+          La première lettre est A !
+          
+          */}
 
           <form className="space-y-4">
             <div>
