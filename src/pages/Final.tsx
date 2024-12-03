@@ -31,12 +31,11 @@ const Final = () => {
   }, [isRunning]);
 
   useEffect(() => {
-    // Vérifie si le paramètre "123" est présent dans l'URL
     const params = new URLSearchParams(location.search);
-    if (params.has("123")) {
+    if (params.get("123") !== null) {
       setShowLetter(true);
     }
-  }, [location]);
+  }, [location.search]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
