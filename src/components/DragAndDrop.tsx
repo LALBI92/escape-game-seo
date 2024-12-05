@@ -10,10 +10,10 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
   const [isCorrect, setIsCorrect] = useState(false);
 
   const animals = [
-    { id: 'panda', year: '2011', image: 'https://source.unsplash.com/random/?panda' },
-    { id: 'pingouin', year: '2012', image: 'https://source.unsplash.com/random/?penguin' },
-    { id: 'colibri', year: '2013', image: 'https://source.unsplash.com/random/?hummingbird' },
-    { id: 'pigeon', year: '2014', image: 'https://source.unsplash.com/random/?pigeon' }
+    { id: 'panda', year: '2011', image: '/lovable-uploads/dd69357d-a560-48d6-b92f-e97e4190c6b8.png' },
+    { id: 'pingouin', year: '2012', image: '/lovable-uploads/a26da636-b58c-484a-bf9b-79451c664172.png' },
+    { id: 'colibri', year: '2013', image: '/lovable-uploads/56433f57-00aa-4215-b868-cf92442ca7dd.png' },
+    { id: 'pigeon', year: '2014', image: '/lovable-uploads/bd754ad3-6ce4-4d8a-9756-0f552f91bce1.png' }
   ];
 
   const handleDragStart = (e: React.DragEvent, imageId: string) => {
