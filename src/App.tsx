@@ -13,24 +13,26 @@ import Leaderboard from "./pages/Leaderboard";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/game" element={<Game />} />
-          <Route path="/message" element={<Message />} />
-          <Route path="/n" element={<Redirect />} />
-          <Route path="/final" element={<Final />} />
-          <Route path="/success" element={<Success />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/game" element={<Game />} />
+            <Route path="/message" element={<Message />} />
+            <Route path="/n" element={<Redirect />} />
+            <Route path="/final" element={<Final />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+          </Routes>
+          <Toaster />
+          <Sonner />
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
