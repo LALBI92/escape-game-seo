@@ -33,9 +33,9 @@ const Final = () => {
         <div className="glass-card rounded-2xl p-8 space-y-8">
           <div className="relative aspect-video rounded-lg overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
-              alt="Personne réfléchissant devant un tableau"
-              className="object-cover w-full h-full"
+              src="/lovable-uploads/6971d9cf-7125-42c0-ac36-3ddb1cc8bafc.png"
+              alt="Minion en blouse de laboratoire avec une fiole"
+              className="object-contain w-full h-full"
             />
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
               <p className="text-white text-4xl font-bold">_______?123</p>
