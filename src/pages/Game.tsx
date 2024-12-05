@@ -10,10 +10,7 @@ const Game = () => {
     return savedTime ? parseInt(savedTime, 10) : 0;
   });
   const [isRunning, setIsRunning] = useState(true);
-  const [currentStep, setCurrentStep] = useState(() => {
-    const savedStep = sessionStorage.getItem("currentStep");
-    return savedStep ? parseInt(savedStep, 10) : 1;
-  });
+  const [currentStep, setCurrentStep] = useState(1); // Toujours commencer à l'étape 1
   const [answer, setAnswer] = useState("");
 
   useEffect(() => {
