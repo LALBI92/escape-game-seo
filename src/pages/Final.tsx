@@ -37,9 +37,6 @@ const Final = () => {
               alt="Minion en blouse de laboratoire avec une fiole"
               className="object-contain w-full h-full"
             />
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <p className="text-white text-4xl font-bold">_______?123</p>
-            </div>
           </div>
 
           <div className="text-center space-y-4">
