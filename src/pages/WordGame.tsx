@@ -59,8 +59,22 @@ const WordGame = () => {
     }
   };
 
-  const renderDashes = (length: number) => {
-    return Array(length).fill("_").join(" ");
+  const renderAnswer = (answer: string, length: number) => {
+    const chars = answer.split('');
+    return (
+      <div className="flex gap-2 justify-center font-mono text-xl">
+        {Array(length).fill('_').map((_, index) => (
+          <span
+            key={index}
+            className={`w-6 h-8 flex items-center justify-center border-b-2 border-gray-400 transition-all duration-300 ${
+              chars[index] ? 'text-purple-600 border-purple-600' : 'text-transparent'
+            }`}
+          >
+            {chars[index] || '_'}
+          </span>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -76,17 +90,16 @@ const WordGame = () => {
               <div className="space-y-4">
                 <p className="text-gray-700 italic">{section.hint}</p>
                 
-                <div className="font-mono text-lg text-gray-500 mb-2">
-                  {renderDashes(section.length)}
-                </div>
+                {renderAnswer(answers[index], section.length)}
 
                 <Input
                   type="text"
                   placeholder="Votre réponse..."
                   value={answers[index]}
                   onChange={(e) => handleAnswerChange(index, e.target.value)}
-                  className="w-full transition-all duration-300 hover:shadow-md"
+                  className="w-full transition-all duration-300 hover:shadow-md mt-4"
                   disabled={index > 0 && !sections[index - 1].isCompleted}
+                  maxLength={section.length}
                 />
 
                 {section.isCompleted && (
