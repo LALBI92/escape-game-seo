@@ -63,9 +63,7 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
               key={animal.id}
               draggable
               onDragStart={(e) => handleDragStart(e, animal.id)}
-              className={`aspect-square bg-white rounded-lg shadow-md overflow-hidden cursor-move hover:shadow-lg transition-shadow ${
-                Object.keys(matches).includes(animal.id) ? 'opacity-50' : ''
-              }`}
+              className="aspect-square bg-white rounded-lg shadow-md overflow-hidden cursor-move hover:shadow-lg transition-shadow"
             >
               <img
                 src={animal.image}
@@ -88,7 +86,7 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
                   isCorrect ? 'border-green-500 bg-green-50' : 'border-dashed border-gray-300'
                 } rounded-lg overflow-hidden transition-colors relative`}
               >
-                <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+                <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-xl font-bold bg-white bg-opacity-80 z-10">
                   {animal.year}
                 </div>
                 {matchedImage && (
