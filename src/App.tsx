@@ -10,6 +10,7 @@ import Redirect from "./pages/Redirect";
 import Final from "./pages/Final";
 import Success from "./pages/Success";
 import Leaderboard from "./pages/Leaderboard";
+import WordGame from "./pages/WordGame";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/final" element={<Final />} />
             <Route path="/success" element={<Success />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/word-game" element={<WordGame />} />
           </Routes>
           <Toaster />
           <Sonner />
