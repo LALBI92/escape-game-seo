@@ -27,7 +27,12 @@ const Message = () => {
           <div className="space-y-4">
             <p className="text-gray-800">
               🎉 Grand Jeu Concours SEO ! 🎉
-              Gagnez votre place pour le prochain bootcamp SEO...
+              <br /><br />
+              Gagnez votre place pour le prochain bootcamp SEO qui aura lieu à Chamonix en décembre 2024.
+              <br /><br />
+              Pour tenter votre chance, découvrez le mot caché sur cette page et envoyez-le moi par MP.
+              <br /><br />
+              Bonne chance à tous ! 🏔️ #SEO #Bootcamp #Chamonix
             </p>
             
             {/* Placeholder for post image */}
@@ -45,13 +50,30 @@ const Message = () => {
         {/* Comments Section */}
         <Card className="p-6 bg-white shadow-md">
           <div className="space-y-6">
+            {/* Steve's Comment */}
+            <div className="flex space-x-4">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0" />
+              <div className="flex-1">
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <h4 className="font-semibold">Steve Palomba</h4>
+                  <p className="text-sm text-gray-600">
+                    N'hésitez pas à participer, le bootcamp sera intense mais enrichissant ! 
+                    On va parler des dernières techniques SEO et j'ai prévu quelques surprises... 😉
+                  </p>
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  J'aime • Répondre • 23h
+                </div>
+              </div>
+            </div>
+
             {/* Comment 1 */}
             <div className="flex space-x-4">
               <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0" />
               <div className="flex-1">
                 <div className="bg-gray-50 p-3 rounded-lg">
                   <h4 className="font-semibold">Marie Dubois</h4>
-                  <p className="text-sm text-gray-600">Super intéressant ! Je participe 🙌</p>
+                  <p className="text-sm text-gray-600">Je participe ! L'énigme est vraiment bien pensée 🤔</p>
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
                   J'aime • Répondre • 12h
@@ -65,10 +87,28 @@ const Message = () => {
               <div className="flex-1">
                 <div className="bg-gray-50 p-3 rounded-lg">
                   <h4 className="font-semibold">Thomas Martin</h4>
-                  <p className="text-sm text-gray-600">Je viens de résoudre l'énigme, c'est vraiment bien pensé !</p>
+                  <p className="text-sm text-gray-600">
+                    Je viens de résoudre l'énigme, c'est vraiment bien pensé ! MP envoyé 🚀
+                  </p>
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
                   J'aime • Répondre • 8h
+                </div>
+              </div>
+            </div>
+
+            {/* Comment 3 */}
+            <div className="flex space-x-4">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0" />
+              <div className="flex-1">
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <h4 className="font-semibold">Sophie Bernard</h4>
+                  <p className="text-sm text-gray-600">
+                    Un bootcamp à Chamonix ? Trop bien ! Je tente ma chance 🎯
+                  </p>
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  J'aime • Répondre • 5h
                 </div>
               </div>
             </div>
