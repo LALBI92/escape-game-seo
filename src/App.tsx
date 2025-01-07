@@ -7,13 +7,13 @@ import Index from "./pages/Index";
 import Introduction from "./pages/Introduction";
 import Game from "./pages/Game";
 import Message from "./pages/Message";
-import Redirect from "./pages/Redirect";
+import DragDropGame from "./pages/DragDropGame";
 import Final from "./pages/Final";
 import Success from "./pages/Success";
 import Leaderboard from "./pages/Leaderboard";
 import WordGame from "./pages/WordGame";
 import ChatGPT from "./pages/ChatGPT";
-import DragDropGame from "./pages/DragDropGame";
+import Journal from "./pages/Journal";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +28,7 @@ const App = () => {
             <Route path="/game" element={<Game />} />
             <Route path="/message" element={<Message />} />
             <Route path="/n" element={<DragDropGame />} />
+            <Route path="/journal" element={<Journal />} />
             <Route path="/final" element={<Final />} />
             <Route path="/success" element={<Success />} />
             <Route path="/leaderboard" element={<Leaderboard />} />

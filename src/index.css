@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -54,4 +56,9 @@
 
 .hover-scale {
   @apply transition-transform duration-200 hover:scale-105;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
 }

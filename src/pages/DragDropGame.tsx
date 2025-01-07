@@ -28,7 +28,7 @@ const DragDropGame = () => {
   }, [navigate]);
 
   const handleSuccess = () => {
-    navigate("/message");
+    navigate("/journal");
   };
 
   return (
