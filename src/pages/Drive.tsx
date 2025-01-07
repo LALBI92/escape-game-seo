@@ -24,7 +24,7 @@ const Drive = () => {
 
   const handleNext = () => {
     if (password === "onlebutecampSEO") {
-      navigate("/success");
+      navigate("/word-game");
     } else {
       toast({
         variant: "destructive",
