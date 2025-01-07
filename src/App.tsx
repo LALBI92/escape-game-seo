@@ -9,7 +9,6 @@ import Game from "./pages/Game";
 import Message from "./pages/Message";
 import DragDropGame from "./pages/DragDropGame";
 import Drive from "./pages/Drive";
-import Final from "./pages/Final";
 import Success from "./pages/Success";
 import Leaderboard from "./pages/Leaderboard";
 import WordGame from "./pages/WordGame";
