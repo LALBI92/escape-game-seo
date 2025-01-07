@@ -12,12 +12,13 @@ import Drive from "./pages/Drive";
 import Leaderboard from "./pages/Leaderboard";
 import Secret from "./pages/Secret";
 import Fin from "./pages/Fin";
+import Index from "./pages/Index";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Introduction />} />
+        <Route path="/" element={<Index />} />
         <Route path="/introduction" element={<Introduction />} />
         <Route path="/game" element={<Game />} />
         <Route path="/wordgame" element={<WordGame />} />
