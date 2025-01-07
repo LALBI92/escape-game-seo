@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/sonner";
 
 const Report = () => {
   const navigate = useNavigate();
@@ -125,6 +126,7 @@ const Report = () => {
           </div>
         </Card>
       </div>
+      <Toaster />
     </div>
   );
 };
