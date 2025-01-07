@@ -117,11 +117,6 @@ const ChatGPT = () => {
 
                     <h3 className="text-xl font-semibold">3. Énigme de protection</h3>
                     <p>J'ai créé un système de protection basé sur une énigme en rapport avec votre métier.</p>
-                    <ul className="list-disc pl-6 space-y-2">
-                      <li>Chaque année correspond à un animal spécifique</li>
-                      <li>Il faut reconstituer la séquence correcte pour débloquer l'accès</li>
-                      <li>Les indices sont cachés dans l'ordre chronologique</li>
-                    </ul>
 
                     <h3 className="text-xl font-semibold">4. Solution recommandée</h3>
                     <div className="mt-4">
