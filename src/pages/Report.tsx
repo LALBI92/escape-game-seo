@@ -34,13 +34,13 @@ const Report = () => {
   ];
 
   const locations = [
-    "Lac Cornu",
-    "Glacier des Bossons",
     "Vallée Blanche",
     "Mer de Glace",
     "Aiguille du Midi",
     "Plan de l'Aiguille",
-    "Les Houches"
+    "Les Houches",
+    "Glacier des Bossons",
+    "Lac Cornu"
   ];
 
   const handleSubmit = () => {
@@ -76,7 +76,7 @@ const Report = () => {
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Choisissez un suspect" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white border shadow-lg">
                   {participants.map((participant) => (
                     <SelectItem key={participant.name} value={participant.name}>
                       {participant.name} - {participant.role}
@@ -92,7 +92,7 @@ const Report = () => {
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Choisissez un lieu" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white border shadow-lg">
                   {locations.map((loc) => (
                     <SelectItem key={loc} value={loc}>
                       {loc}
