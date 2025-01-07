@@ -15,8 +15,8 @@ const Index = () => {
       return;
     }
     localStorage.setItem("player", JSON.stringify({ name, email }));
-    toast.success("Que le jeu commence !");
-    navigate("/game");
+    toast.success("Que l'enquête commence !");
+    navigate("/introduction");
   };
 
   return (
