@@ -3,6 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { InfoIcon } from "lucide-react";
 
 const Introduction = () => {
   const navigate = useNavigate();
@@ -26,6 +32,9 @@ const Introduction = () => {
       navigate("/");
       return;
     }
+    // Start the timer when accepting the mission
+    const startTime = Date.now();
+    sessionStorage.setItem("startTime", startTime.toString());
     navigate("/message");
   };
 
@@ -35,10 +44,24 @@ const Introduction = () => {
         <Card className="glass-card overflow-hidden">
           {/* Email Header */}
           <div className="border-b border-gray-200 bg-gray-50 px-6 py-4">
-            <div className="flex items-center space-x-4">
-              <div className="h-3 w-3 bg-red-500 rounded-full"></div>
-              <div className="h-3 w-3 bg-yellow-500 rounded-full"></div>
-              <div className="h-3 w-3 bg-green-500 rounded-full"></div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="h-3 w-3 bg-red-500 rounded-full"></div>
+                <div className="h-3 w-3 bg-yellow-500 rounded-full"></div>
+                <div className="h-3 w-3 bg-green-500 rounded-full"></div>
+              </div>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <InfoIcon className="h-5 w-5" />
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80">
+                  <p className="text-sm text-muted-foreground">
+                    Votre mission est de résoudre cette enquête le plus rapidement possible. Le chronomètre démarrera dès que vous accepterez la mission.
+                  </p>
+                </HoverCardContent>
+              </HoverCard>
             </div>
           </div>
 
@@ -70,7 +93,7 @@ const Introduction = () => {
                 <p className="text-sm">
                   <strong>Contexte :</strong> Steve Palomba, responsable SEO chez un grand e-commerçant français, 
                   a récemment participé à un bootcamp dans le but de perfectionner ses compétences. 
-                  Malheureusement, nous n'avons plus aucune nouvelle de lui depuis lors.
+                  Nous n'avons plus aucune nouvelle de lui depuis le 23 décembre dans la soirée.
                 </p>
               </div>
 
