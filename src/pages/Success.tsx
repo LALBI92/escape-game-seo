@@ -17,10 +17,10 @@ const Success = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white p-8">
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold">Information importante</DialogTitle>
-            <DialogDescription className="text-base pt-2">
+            <DialogTitle className="text-xl font-bold text-black">Information importante</DialogTitle>
+            <DialogDescription className="text-base pt-2 text-black">
               Sur le drive du Bootcamp nous avons également trouvé la liste des participants
             </DialogDescription>
           </DialogHeader>
