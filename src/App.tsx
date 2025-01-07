@@ -12,6 +12,7 @@ import DragDropGame from "./pages/DragDropGame";
 import Leaderboard from "./pages/Leaderboard";
 import Redirect from "./pages/Redirect";
 import Report from "./pages/Report";
+import Secret from "./pages/Secret";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/dragdrop" element={<DragDropGame />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/redirect" element={<Redirect />} />
+        <Route path="/secret" element={<Secret />} />
       </Routes>
     </Router>
   );

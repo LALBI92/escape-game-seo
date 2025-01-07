@@ -67,7 +67,7 @@ const Report = () => {
   };
 
   const handleContinue = () => {
-    navigate("/message");
+    navigate("/secret");
   };
 
   return (
