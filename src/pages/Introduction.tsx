@@ -26,7 +26,7 @@ const Introduction = () => {
       navigate("/");
       return;
     }
-    navigate("/game");
+    navigate("/message");
   };
 
   return (
