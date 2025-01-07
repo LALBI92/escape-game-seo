@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Select,
@@ -19,6 +19,30 @@ const Report = () => {
   const [suspect, setSuspect] = useState("");
   const [location, setLocation] = useState("");
   const [showContinueButton, setShowContinueButton] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState("00:00");
+
+  useEffect(() => {
+    const startTime = sessionStorage.getItem("startTime");
+    if (!startTime) {
+      navigate("/");
+      return;
+    }
+
+    const interval = setInterval(() => {
+      const start = parseInt(startTime);
+      const now = Date.now();
+      const elapsed = Math.floor((now - start) / 1000);
+      const minutes = Math.floor(elapsed / 60);
+      const seconds = elapsed % 60;
+      setElapsedTime(
+        `${minutes.toString().padStart(2, "0")}:${seconds
+          .toString()
+          .padStart(2, "0")}`
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [navigate]);
 
   const participants = [
     { name: "John", role: "Organisateur", company: "Digital Academy" },
@@ -99,7 +123,10 @@ const Report = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white p-8">
       <div className="max-w-2xl mx-auto">
-        <Card className="p-6 space-y-8 animate-fade-up">
+        <Card className="p-6 space-y-8 animate-fade-up relative">
+          <div className="absolute top-4 right-4 font-mono text-sm bg-purple-100 px-2 py-1 rounded">
+            {elapsedTime}
+          </div>
           <h1 className="text-3xl font-bold text-purple-800 text-center mb-8">
             Rapport d'Enquête
           </h1>
