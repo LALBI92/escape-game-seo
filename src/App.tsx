@@ -12,6 +12,7 @@ import Final from "./pages/Final";
 import Success from "./pages/Success";
 import Leaderboard from "./pages/Leaderboard";
 import WordGame from "./pages/WordGame";
+import ChatGPT from "./pages/ChatGPT";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="/success" element={<Success />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/word-game" element={<WordGame />} />
+            <Route path="/chatgpt" element={<ChatGPT />} />
           </Routes>
           <Toaster />
           <Sonner />
