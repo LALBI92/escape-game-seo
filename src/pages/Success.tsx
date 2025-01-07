@@ -1,7 +1,10 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Success = () => {
+  const navigate = useNavigate();
   const participants = [
     { name: "John", role: "Organisateur", company: "Digital Academy" },
     { name: "Steve", role: "Responsable SEO e-commerce", company: "Z-discount" },
@@ -45,6 +48,15 @@ const Success = () => {
                 ))}
               </TableBody>
             </Table>
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <Button 
+              onClick={() => navigate('/game')}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-2 rounded-full font-semibold text-lg"
+            >
+              Continuer
+            </Button>
           </div>
         </Card>
       </div>
