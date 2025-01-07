@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/toaster";
 
 const Report = () => {
   const navigate = useNavigate();
@@ -21,7 +21,6 @@ const Report = () => {
   const participants = [
     { name: "John", role: "Organisateur", company: "Digital Academy" },
     { name: "Steve", role: "Responsable SEO e-commerce", company: "Z-discount" },
-    { name: "Larry Smith", role: "SEO Consultant", company: "SEO - Santiano" },
     { name: "Emma Wilson", role: "SEO Manager", company: "SEO - Santiano" },
     { name: "Thomas Martin", role: "SEO Content Strategist", company: "SEO - Santiano" },
     { name: "Sarah Chen", role: "Technical SEO Specialist", company: "SEO - Santiano" },
@@ -31,7 +30,8 @@ const Report = () => {
     { name: "Maria Garcia", role: "E-commerce SEO Manager", company: "SEO - Santiano" },
     { name: "James Wilson", role: "Local SEO Expert", company: "SEO - Santiano" },
     { name: "Anna Schmidt", role: "SEO Content Manager", company: "SEO - Santiano" },
-    { name: "Pierre Durand", role: "SEO Technical Lead", company: "SEO - Santiano" }
+    { name: "Pierre Durand", role: "SEO Technical Lead", company: "SEO - Santiano" },
+    { name: "Larry Smith", role: "SEO Consultant", company: "SEO - Santiano" }
   ];
 
   const locations = [
@@ -46,19 +46,19 @@ const Report = () => {
 
   const handleSubmit = () => {
     if (suspect === "Larry Smith" && location === "Lac Cornu") {
-      // Première réponse
+      // Premier message
       toast({
-        title: "Message de l'équipe",
+        title: "Sophie",
         description: "Vos indications sont pertinentes. Nous avons trouvé sur les bottes de Larry des traces de boue et de sang. Après analyse, le sang appartient bien à Steve.",
-        className: "glass-card",
+        className: "bg-blue-100 border-blue-200",
       });
 
-      // Deuxième réponse après 3 secondes
+      // Deuxième message après 3 secondes
       setTimeout(() => {
         toast({
-          title: "Message de l'équipe",
-          description: "Nous avons bien retrouvé le corps de Steve au lac... Sophie va prévenir sa femme. Il avait un papier dans sa poche avec ce qui ressemble à un code : seo2025. On vous laisse creuser ce point.",
-          className: "glass-card",
+          title: "Sophie",
+          description: "Nous avons bien retrouvé le corps de Steve au lac... Je vais prévenir sa femme. Il avait un papier dans sa poche avec ce qui ressemble à un code : seo2025. On vous laisse creuser ce point.",
+          className: "bg-blue-100 border-blue-200",
         });
       }, 3000);
 
@@ -68,10 +68,10 @@ const Report = () => {
       }, 5000);
     } else {
       toast({
-        title: "Message de l'équipe",
+        title: "Sophie",
         description: "Malheureusement ces éléments ne nous ont pas permis d'avancer, notre enquête piétine.",
         variant: "destructive",
-        className: "glass-card",
+        className: "bg-red-100 border-red-200",
       });
     }
   };
