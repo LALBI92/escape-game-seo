@@ -15,9 +15,28 @@ interface WordSection {
 
 const WordGame = () => {
   const navigate = useNavigate();
-  const [answers, setAnswers] = useState<string[]>([""]); // Réduit à un seul élément
+  const [answers, setAnswers] = useState<string[]>([""]); 
   const [allCompleted, setAllCompleted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(() => {
+    const savedTime = sessionStorage.getItem("timeLeft");
+    return savedTime ? parseInt(savedTime) : 300;
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 0) {
+          clearInterval(timer);
+          return 0;
+        }
+        const newTime = prevTime - 1;
+        sessionStorage.setItem("timeLeft", newTime.toString());
+        return newTime;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const sections: WordSection[] = [
     {
@@ -28,20 +47,6 @@ const WordGame = () => {
       isCompleted: answers[0] === "larry"
     }
   ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 0) {
-          clearInterval(timer);
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const completed = answers.every((answer, index) => 
@@ -121,10 +126,10 @@ const WordGame = () => {
               </Card>
               {index === 0 && (
                 <div className="text-center space-y-4 animate-fade-up">
-                  <p className="text-4xl font-bold text-purple-800">
+                  <p className="text-4xl font-bold text-black">
                     WHEN : 1703385600
                   </p>
-                  <p className="text-4xl font-bold text-purple-800">
+                  <p className="text-4xl font-bold text-black">
                     WHERE : 45.957506, 6.848237
                   </p>
                 </div>
