@@ -17,19 +17,40 @@ const Leaderboard = () => {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  // Exemple avec plus d'entrées pour démontrer le défilement
+  // Simulation de 30 résultats avec des temps variés
   const leaderboard = [
-    { pseudo: "Alice", time: 180 },
-    { pseudo: "Bob", time: 240 },
-    { pseudo: "Charlie", time: 300 },
-    { pseudo: "David", time: 320 },
-    { pseudo: "Eva", time: 340 },
-    { pseudo: "Frank", time: 360 },
-    { pseudo: "Grace", time: 380 },
-    { pseudo: "Henry", time: 400 },
+    { pseudo: "Alice", time: 180 }, // 3:00
+    { pseudo: "Bob", time: 240 }, // 4:00
+    { pseudo: "Charlie", time: 300 }, // 5:00
+    { pseudo: "David", time: 320 }, // 5:20
+    { pseudo: "Eva", time: 340 }, // 5:40
+    { pseudo: "Frank", time: 360 }, // 6:00
+    { pseudo: "Grace", time: 380 }, // 6:20
+    { pseudo: "Henry", time: 400 }, // 6:40
+    { pseudo: "Isabelle", time: 420 }, // 7:00
+    { pseudo: "Jack", time: 440 }, // 7:20
+    { pseudo: "Karen", time: 460 }, // 7:40
+    { pseudo: "Liam", time: 480 }, // 8:00
+    { pseudo: "Maria", time: 500 }, // 8:20
+    { pseudo: "Noah", time: 520 }, // 8:40
+    { pseudo: "Olivia", time: 540 }, // 9:00
+    { pseudo: "Peter", time: 560 }, // 9:20
+    { pseudo: "Quinn", time: 580 }, // 9:40
+    { pseudo: "Rachel", time: 600 }, // 10:00
+    { pseudo: "Sam", time: 620 }, // 10:20
+    { pseudo: "Tina", time: 640 }, // 10:40
+    { pseudo: "Uma", time: 660 }, // 11:00
+    { pseudo: "Victor", time: 680 }, // 11:20
+    { pseudo: "Wendy", time: 700 }, // 11:40
+    { pseudo: "Xavier", time: 720 }, // 12:00
+    { pseudo: "Yara", time: 740 }, // 12:20
+    { pseudo: "Zack", time: 760 }, // 12:40
+    { pseudo: "Anna", time: 780 }, // 13:00
+    { pseudo: "Ben", time: 800 }, // 13:20
+    { pseudo: "Clara", time: 820 }, // 13:40
+    { pseudo: "Dan", time: 840 }, // 14:00
   ];
 
-  // Calculer la position du participant
   const getParticipantPosition = () => {
     let position = 1;
     for (const entry of leaderboard) {
@@ -76,7 +97,7 @@ const Leaderboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white p-4">
       <div className="max-w-2xl mx-auto pt-20 space-y-8">
-        <div className="text-center space-y-6 fade-in">
+        <div className="text-center space-y-6 animate-fade-up">
           <h1 className="text-4xl font-bold">Félicitations ! 🎉</h1>
           <p className="text-2xl text-purple-200">
             Votre temps : {formatTime(finalTime)}
@@ -93,7 +114,7 @@ const Leaderboard = () => {
             Cela nous encouragera à en créer d'autres !
           </p>
           
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-4 flex-wrap">
             <Button
               onClick={shareOnTwitter}
               variant="outline"
@@ -123,18 +144,20 @@ const Leaderboard = () => {
         
         <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md">
           <h2 className="text-2xl font-semibold text-center mb-6">Classement 🏆</h2>
-          <ScrollArea className="h-[400px] pr-4">
-            <div className="space-y-4">
+          <ScrollArea className="h-[400px] rounded-lg">
+            <div className="space-y-2 pr-4">
               {leaderboard.map((entry, index) => (
                 <div 
                   key={index} 
-                  className="flex justify-between items-center p-4 glass-card rounded-lg hover-scale"
+                  className={`flex justify-between items-center p-4 rounded-lg transition-all duration-200 ${
+                    index < 3 ? 'bg-white/20' : 'bg-white/10'
+                  } hover:bg-white/30`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">{getPositionEmoji(index)}</span>
-                    <span className="text-lg">{entry.pseudo}</span>
+                    <span className="text-2xl w-8">{getPositionEmoji(index)}</span>
+                    <span className="text-lg font-medium">{entry.pseudo}</span>
                   </div>
-                  <span className="text-lg">{formatTime(entry.time)}</span>
+                  <span className="text-lg font-mono">{formatTime(entry.time)}</span>
                 </div>
               ))}
             </div>
