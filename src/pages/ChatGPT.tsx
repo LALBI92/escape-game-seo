@@ -38,7 +38,7 @@ const ChatGPT = () => {
   }, [navigate]);
 
   const handleDownload = () => {
-    navigate("/drag-drop-game");
+    window.location.href = "https://preview--seo-escape-adventure.lovable.app/dragdrop";
   };
 
   const formatTime = (seconds: number) => {
