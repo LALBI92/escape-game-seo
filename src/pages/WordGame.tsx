@@ -112,9 +112,12 @@ const WordGame = () => {
                 </div>
               </Card>
               {index === 0 && (
-                <div className="text-center animate-fade-up">
+                <div className="text-center space-y-4 animate-fade-up">
                   <p className="text-4xl font-bold text-purple-800">
                     WHEN : 1703385600
+                  </p>
+                  <p className="text-4xl font-bold text-purple-800">
+                    WHERE : 45.957506, 6.848237
                   </p>
                 </div>
               )}
