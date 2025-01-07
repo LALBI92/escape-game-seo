@@ -50,12 +50,12 @@ const Game = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (currentStep === 1 && answer.toLowerCase() === "a") {
+    if (currentStep === 1 && answer.toLowerCase() === "combinaison") {
       setCurrentStep(2);
       setAnswer("");
       toast.success("Bravo ! Passons à l'étape suivante.");
     } else if (currentStep === 1) {
-      toast.error("Ce n'est pas la bonne lettre. Essayez encore !");
+      toast.error("Ce n'est pas le bon mot. Essayez encore !");
     }
   };
 
@@ -105,7 +105,6 @@ const Game = () => {
                   id="answer"
                   value={answer}
                   onChange={(e) => setAnswer(e.target.value)}
-                  maxLength={1}
                   className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
                   placeholder="Votre réponse..."
                 />
