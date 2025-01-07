@@ -73,6 +73,20 @@ const Journal = () => {
                 Depuis hier tout le monde se montre insistant par rapport à ma dernière publication sur twitter. Il me demande comment je fais et si je peux leur expliquer...ON dirait que c&apos;est de moi qu&apos;ils attendent une formation. C&apos;est à ni rien comprendre
               </p>
             </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Jeudi 22 décembre</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Aujourd&apos;hui alors qu&apos;on était au chalet d&apos;altitude, ils ont continué à me questionner sur ma méthode SEO secrète. Je les ai senti agacé quand j&apos;ai refusé de répondre.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Vendredi 23 décembre</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Il l&apos;a fait exprès j&apos;en suis sûr, John a essayé de me pousser alors qu&apos;on marchait près d&apos;un précipice. Heureusement un touriste hollandais m&apos;a attrapé par le bras sinon je pense que s&apos;en était fini de moi. Je vais voir pour prendre un train demain. Mais un 24 décembre je ne sais si je pourrais
+              </p>
+            </div>
           </div>
         </Card>
 
