@@ -15,8 +15,9 @@ interface WordSection {
 
 const WordGame = () => {
   const navigate = useNavigate();
-  const [answers, setAnswers] = useState<string[]>(["", "", ""]);
+  const [answers, setAnswers] = useState<string[]>(["", ""]);
   const [allCompleted, setAllCompleted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
 
   const sections: WordSection[] = [
     {
@@ -32,15 +33,22 @@ const WordGame = () => {
       hint: "Invisible mais essentiel, je guide les voyageurs du web comme un panneau indicateur à l'entrée d'un village. Sans moi, certains chemins restent fermés, tandis que d'autres s'ouvrent sur l'infini.",
       length: 10,
       isCompleted: answers[1] === "robots.txt"
-    },
-    {
-      id: 3,
-      word: "canonical",
-      hint: "Dans un univers où les chemins se multiplient, je suis la boussole qui pointe vers l'unique direction. Je suis le guide pour ne pas se perdre dans un labyrinthe de doublons.",
-      length: 9,
-      isCompleted: answers[2] === "canonical"
     }
   ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 0) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const completed = answers.every((answer, index) => 
@@ -59,6 +67,12 @@ const WordGame = () => {
     } else if (value.length === sections[index].length && value.toLowerCase() !== sections[index].word) {
       toast.error("Mauvaise réponse, essayez encore !");
     }
+  };
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
   const renderAnswer = (answer: string, length: number) => {
@@ -82,9 +96,11 @@ const WordGame = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white p-8">
       <div className="max-w-4xl mx-auto space-y-8">
-        <h1 className="text-3xl font-bold text-center mb-12 text-purple-900">
-          Jeu du Mot Mystère
-        </h1>
+        <div className="text-center mb-8">
+          <p className="text-2xl font-bold text-purple-800">
+            {formatTime(timeLeft)}
+          </p>
+        </div>
 
         <div className="space-y-8">
           {sections.map((section, index) => (
