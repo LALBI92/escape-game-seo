@@ -21,10 +21,10 @@ const WordGame = () => {
   const sections: WordSection[] = [
     {
       id: 1,
-      word: "92",
-      hint: "Je suis souvent cité dans les discussions sur l'abondance. On dit que mes voisins regardent en silence les grandes tours. Pour certains, je suis un territoire d'opportunités, mais pour d'autres, je suis un simple duo de chiffres.",
-      length: 2,
-      isCompleted: answers[0] === "92"
+      word: "larry",
+      hint: "Je suis le prénom de l'un des créateurs de Google, Et mon nom est caché dans l'algorithme qui classe les pages web. Sans moi, le PageRank n'existerait pas. Qui suis-je ?",
+      length: 5,
+      isCompleted: answers[0] === "larry"
     },
     {
       id: 2,
@@ -51,11 +51,13 @@ const WordGame = () => {
 
   const handleAnswerChange = (index: number, value: string) => {
     const newAnswers = [...answers];
-    newAnswers[index] = value;
+    newAnswers[index] = value.toLowerCase();
     setAnswers(newAnswers);
 
-    if (value === sections[index].word) {
+    if (value.toLowerCase() === sections[index].word) {
       toast.success("Bonne réponse !");
+    } else if (value.length === sections[index].length && value.toLowerCase() !== sections[index].word) {
+      toast.error("Mauvaise réponse, essayez encore !");
     }
   };
 
