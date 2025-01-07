@@ -13,27 +13,20 @@ const Game = () => {
   const [answer, setAnswer] = useState("");
 
   useEffect(() => {
-    const player = localStorage.getItem("player");
-    if (!player) {
+    const startTime = sessionStorage.getItem("startTime");
+    if (!startTime) {
       navigate("/");
       return;
     }
 
-    let intervalId: ReturnType<typeof setInterval>;
-    if (isRunning) {
-      intervalId = setInterval(() => {
-        setTime((prevTime) => {
-          const newTime = prevTime + 1;
-          sessionStorage.setItem("gameTime", newTime.toString());
-          return newTime;
-        });
-      }, 1000);
-    }
+    const intervalId = setInterval(() => {
+      const currentTime = Date.now();
+      const elapsedTime = Math.floor((currentTime - parseInt(startTime)) / 1000);
+      setTime(elapsedTime);
+    }, 1000);
 
-    return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [isRunning, navigate]);
+    return () => clearInterval(intervalId);
+  }, [navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +51,7 @@ const Game = () => {
       <div className="max-w-4xl mx-auto">
         <div className="glass-card rounded-2xl p-6 mb-4">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold">Défi SEO</h2>
+            <h2 className="text-2xl font-bold">Gagne ta place pour notre bootcamp SEO à Chamonix</h2>
             <div className="text-xl font-mono">{formatTime(time)}</div>
           </div>
         </div>
