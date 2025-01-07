@@ -4,33 +4,34 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
 const Liste = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const startTime = searchParams.get("startTime");
   const [elapsedTime, setElapsedTime] = useState("00:00");
   const [isDialogOpen, setIsDialogOpen] = useState(true);
 
   useEffect(() => {
-    if (startTime) {
-      const interval = setInterval(() => {
-        const start = parseInt(startTime);
-        const now = Date.now();
-        const elapsed = Math.floor((now - start) / 1000);
-        const minutes = Math.floor(elapsed / 60);
-        const seconds = elapsed % 60;
-        setElapsedTime(
-          `${minutes.toString().padStart(2, "0")}:${seconds
-            .toString()
-            .padStart(2, "0")}`
-        );
-      }, 1000);
-
-      return () => clearInterval(interval);
+    const startTime = sessionStorage.getItem("startTime");
+    if (!startTime) {
+      navigate("/");
+      return;
     }
-  }, [startTime]);
+
+    const interval = setInterval(() => {
+      const start = parseInt(startTime);
+      const now = Date.now();
+      const elapsed = Math.floor((now - start) / 1000);
+      const minutes = Math.floor(elapsed / 60);
+      const seconds = elapsed % 60;
+      setElapsedTime(
+        `${minutes.toString().padStart(2, "0")}:${seconds
+          .toString()
+          .padStart(2, "0")}`
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [navigate]);
 
   const participants = [
     { name: "John", role: "Organisateur", company: "Digital Academy" },
