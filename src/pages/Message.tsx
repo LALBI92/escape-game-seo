@@ -18,8 +18,8 @@ const Message = () => {
           <div className="flex items-center space-x-4 mb-4">
             <div className="w-12 h-12 rounded-full bg-gray-200" />
             <div>
-              <h3 className="font-semibold">Steve Palomba</h3>
-              <p className="text-sm text-gray-500">SEO Manager • 1j</p>
+              <h3 className="font-semibold">John Macmuller</h3>
+              <p className="text-sm text-gray-500">Organisateur Bootcamp SEO • 1j</p>
             </div>
           </div>
 
