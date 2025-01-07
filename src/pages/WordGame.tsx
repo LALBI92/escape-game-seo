@@ -142,7 +142,7 @@ const WordGame = () => {
           <div className="text-center animate-fade-up">
             <Button 
               onClick={() => navigate("/success")}
-              className="neo-button bg-purple-600 hover:bg-purple-700 text-white font-semibold text-lg"
+              className="neo-button bg-purple-600 hover:bg-purple-700 text-black font-semibold text-lg"
             >
               Continuer l'aventure
             </Button>
