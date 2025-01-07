@@ -11,6 +11,7 @@ import ChatGPT from "./pages/ChatGPT";
 import DragDropGame from "./pages/DragDropGame";
 import Leaderboard from "./pages/Leaderboard";
 import Redirect from "./pages/Redirect";
+import Report from "./pages/Report";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/game" element={<Game />} />
         <Route path="/wordgame" element={<WordGame />} />
         <Route path="/success" element={<Liste />} />
+        <Route path="/report" element={<Report />} />
         <Route path="/message" element={<Message />} />
         <Route path="/journal" element={<Journal />} />
         <Route path="/drive" element={<Drive />} />

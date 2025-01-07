@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
-const Success = () => {
+const Liste = () => {
   const navigate = useNavigate();
   const participants = [
     { name: "John", role: "Organisateur", company: "Digital Academy" },
@@ -52,7 +52,7 @@ const Success = () => {
 
           <div className="mt-8 flex justify-center">
             <Button 
-              onClick={() => navigate('/game')}
+              onClick={() => navigate('/report')}
               className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-2 rounded-full font-semibold text-lg"
             >
               Continuer
@@ -64,4 +64,4 @@ const Success = () => {
   );
 };
 
-export default Success;
+export default Liste;
