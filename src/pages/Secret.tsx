@@ -35,7 +35,7 @@ const Secret = () => {
           placeholder="Entrez le mot de passe"
           className="bg-transparent border-black text-black placeholder:text-black"
         />
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full bg-transparent text-black border-black hover:bg-transparent">
           Valider
         </Button>
       </form>
