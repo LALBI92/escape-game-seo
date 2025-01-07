@@ -54,12 +54,12 @@ const Liste = () => {
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-center">
-              Félicitations ! 🎉
+              Découverte ! 🔍
             </DialogTitle>
           </DialogHeader>
           <div className="text-center space-y-4">
             <p className="text-lg">
-              Vous avez terminé le jeu avec succès !
+              Sur le drive du Bootcamp nous avons également trouvé la liste des participants
             </p>
             <p className="text-sm text-muted-foreground">
               Temps écoulé : {elapsedTime}
