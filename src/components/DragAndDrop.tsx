@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 
 interface DragAndDropProps {
@@ -8,6 +8,7 @@ interface DragAndDropProps {
 export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
   const [matches, setMatches] = useState<Record<string, string>>({});
   const [isCorrect, setIsCorrect] = useState(false);
+  const [shuffledAnimals, setShuffledAnimals] = useState<Array<{ id: string; year: string; image: string }>>([]);
 
   const animals = [
     { id: 'panda', year: '2011', image: '/lovable-uploads/dd69357d-a560-48d6-b92f-e97e4190c6b8.png' },
@@ -15,6 +16,12 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
     { id: 'colibri', year: '2013', image: '/lovable-uploads/56433f57-00aa-4215-b868-cf92442ca7dd.png' },
     { id: 'pigeon', year: '2014', image: '/lovable-uploads/bd754ad3-6ce4-4d8a-9756-0f552f91bce1.png' }
   ];
+
+  useEffect(() => {
+    // Mélanger les animaux au chargement du composant
+    const shuffled = [...animals].sort(() => Math.random() - 0.5);
+    setShuffledAnimals(shuffled);
+  }, []);
 
   const handleDragStart = (e: React.DragEvent, imageId: string) => {
     e.dataTransfer.setData('imageId', imageId);
@@ -58,7 +65,7 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
     <div className="space-y-8">
       <div className="grid grid-cols-2 gap-8">
         <div className="grid grid-cols-2 gap-4">
-          {animals.map((animal) => (
+          {shuffledAnimals.map((animal) => (
             <div
               key={animal.id}
               draggable
