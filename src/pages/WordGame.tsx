@@ -88,35 +88,37 @@ const WordGame = () => {
 
         <div className="space-y-8">
           {sections.map((section, index) => (
-            <Card key={section.id} className="p-6 glass-card animate-fade-up">
-              <div className="space-y-4">
-                <p className="text-gray-700 italic">{section.hint}</p>
-                
-                {index === 0 && (
-                  <p className="text-4xl font-bold text-purple-800 my-4 animate-fade-up">
-                    1703385600
-                  </p>
-                )}
-                
-                {renderAnswer(answers[index], section.length)}
+            <>
+              <Card key={section.id} className="p-6 glass-card animate-fade-up">
+                <div className="space-y-4">
+                  <p className="text-gray-700 italic">{section.hint}</p>
+                  {renderAnswer(answers[index], section.length)}
 
-                <Input
-                  type="text"
-                  placeholder="Votre réponse..."
-                  value={answers[index]}
-                  onChange={(e) => handleAnswerChange(index, e.target.value)}
-                  className="w-full transition-all duration-300 hover:shadow-md mt-4"
-                  disabled={index > 0 && !sections[index - 1].isCompleted}
-                  maxLength={section.length}
-                />
+                  <Input
+                    type="text"
+                    placeholder="Votre réponse..."
+                    value={answers[index]}
+                    onChange={(e) => handleAnswerChange(index, e.target.value)}
+                    className="w-full transition-all duration-300 hover:shadow-md mt-4"
+                    disabled={index > 0 && !sections[index - 1].isCompleted}
+                    maxLength={section.length}
+                  />
 
-                {section.isCompleted && (
-                  <p className="text-green-600 font-medium animate-fade-in">
-                    Correct ! ✨
+                  {section.isCompleted && (
+                    <p className="text-green-600 font-medium animate-fade-in">
+                      Correct ! ✨
+                    </p>
+                  )}
+                </div>
+              </Card>
+              {index === 0 && (
+                <div className="text-center animate-fade-up">
+                  <p className="text-4xl font-bold text-purple-800">
+                    WHEN : 1703385600
                   </p>
-                )}
-              </div>
-            </Card>
+                </div>
+              )}
+            </>
           ))}
         </div>
 
