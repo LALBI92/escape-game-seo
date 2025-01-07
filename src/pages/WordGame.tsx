@@ -92,6 +92,12 @@ const WordGame = () => {
               <div className="space-y-4">
                 <p className="text-gray-700 italic">{section.hint}</p>
                 
+                {index === 0 && (
+                  <p className="text-4xl font-bold text-purple-800 my-4 animate-fade-up">
+                    1703385600
+                  </p>
+                )}
+                
                 {renderAnswer(answers[index], section.length)}
 
                 <Input
