@@ -1,12 +1,41 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 const ChatGPT = () => {
   const navigate = useNavigate();
+  const [time, setTime] = useState(() => {
+    const savedTime = sessionStorage.getItem("gameTime");
+    return savedTime ? parseInt(savedTime, 10) : 0;
+  });
+
+  useEffect(() => {
+    const player = localStorage.getItem("player");
+    if (!player) {
+      navigate("/");
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      setTime((prevTime) => {
+        const newTime = prevTime + 1;
+        sessionStorage.setItem("gameTime", newTime.toString());
+        return newTime;
+      });
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [navigate]);
 
   const handleDownload = () => {
     navigate("/n");
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -21,6 +50,7 @@ const ChatGPT = () => {
             </svg>
           </div>
           <div className="flex items-center gap-4">
+            <div className="text-xl font-mono">{formatTime(time)}</div>
             <Button variant="ghost" className="text-white/80">
               Partager
             </Button>
