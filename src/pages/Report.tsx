@@ -52,7 +52,20 @@ const Report = () => {
         title: "Sophie",
         description: "Vos indications sont pertinentes. Nous avons trouvé sur les bottes de Larry des traces de boue et de sang. Après analyse, le sang appartient bien à Steve. Nous avons retrouvé son corps au lac... Je vais prévenir sa femme. Il avait un papier dans sa poche avec ce qui ressemble à un code : seo2025.",
         className: "bg-blue-100 border-blue-200 font-medium",
-        action: <X className="h-4 w-4 cursor-pointer" onClick={() => toast.dismiss()} />,
+        action: (
+          <X 
+            className="h-4 w-4 cursor-pointer" 
+            onClick={(e) => {
+              e.stopPropagation();
+              const toastInstance = toast({
+                title: "Sophie",
+                description: "Message fermé",
+                duration: 0
+              });
+              toastInstance.dismiss();
+            }} 
+          />
+        ),
       });
       setShowContinueButton(true);
     } else {
@@ -61,7 +74,20 @@ const Report = () => {
         description: "Malheureusement ces éléments ne nous ont pas permis d'avancer, notre enquête piétine.",
         variant: "destructive",
         className: "bg-red-200 border-red-300 text-red-900 font-medium",
-        action: <X className="h-4 w-4 cursor-pointer" onClick={() => toast.dismiss()} />,
+        action: (
+          <X 
+            className="h-4 w-4 cursor-pointer" 
+            onClick={(e) => {
+              e.stopPropagation();
+              const toastInstance = toast({
+                title: "Sophie",
+                description: "Message fermé",
+                duration: 0
+              });
+              toastInstance.dismiss();
+            }} 
+          />
+        ),
       });
     }
   };
