@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const Report = () => {
   const navigate = useNavigate();
@@ -45,18 +45,32 @@ const Report = () => {
 
   const handleSubmit = () => {
     if (suspect === "Larry Smith" && location === "Lac Cornu") {
+      // Première réponse
       toast({
-        title: "Rapport envoyé",
-        description: "Vos conclusions sont pertinentes. Les équipes se dirigent vers le Lac Cornu.",
+        title: "Message de l'équipe",
+        description: "Vos indications sont pertinentes. Nous avons trouvé sur les bottes de Larry des traces de boue et de sang. Après analyse, le sang appartient bien à Steve.",
+        className: "glass-card",
       });
+
+      // Deuxième réponse après 3 secondes
+      setTimeout(() => {
+        toast({
+          title: "Message de l'équipe",
+          description: "Nous avons bien retrouvé le corps de Steve au lac... Sophie va prévenir sa femme. Il avait un papier dans sa poche avec ce qui ressemble à un code : seo2025. On vous laisse creuser ce point.",
+          className: "glass-card",
+        });
+      }, 3000);
+
+      // Navigation après les messages
       setTimeout(() => {
         navigate("/message");
-      }, 2000);
+      }, 5000);
     } else {
       toast({
-        title: "Erreur",
-        description: "Vos conclusions ne semblent pas correctes. Réfléchissez encore.",
+        title: "Message de l'équipe",
+        description: "Malheureusement ces éléments ne nous ont pas permis d'avancer, notre enquête piétine.",
         variant: "destructive",
+        className: "glass-card",
       });
     }
   };
