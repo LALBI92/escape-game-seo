@@ -13,6 +13,7 @@ import Leaderboard from "./pages/Leaderboard";
 import Redirect from "./pages/Redirect";
 import Report from "./pages/Report";
 import Secret from "./pages/Secret";
+import Fin from "./pages/Fin";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/redirect" element={<Redirect />} />
         <Route path="/secret" element={<Secret />} />
+        <Route path="/fin" element={<Fin />} />
       </Routes>
     </Router>
   );

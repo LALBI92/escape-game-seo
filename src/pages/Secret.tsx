@@ -12,7 +12,7 @@ const Secret = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === "seo2025") {
-      navigate("/message");
+      navigate("/fin");
     } else {
       toast({
         title: "Erreur",
