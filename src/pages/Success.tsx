@@ -4,18 +4,18 @@ import { Card } from "@/components/ui/card";
 const Success = () => {
   const participants = [
     { name: "John", role: "Organisateur", company: "Digital Academy" },
-    { name: "Steve", role: "Responsable SEO e-commerce", company: "E-Shop Masters" },
-    { name: "Larry Page", role: "SEO Consultant", company: "Tech Solutions" },
-    { name: "Emma Wilson", role: "SEO Manager", company: "Digital Growth" },
-    { name: "Thomas Martin", role: "SEO Content Strategist", company: "Content First" },
-    { name: "Sarah Chen", role: "Technical SEO Specialist", company: "SEO Tech Labs" },
-    { name: "Michael Brown", role: "SEO Analytics Expert", company: "Data Insights" },
-    { name: "Sophie Dubois", role: "SEO Project Manager", company: "Web Performance" },
-    { name: "David Kim", role: "International SEO Specialist", company: "Global SEO" },
-    { name: "Maria Garcia", role: "E-commerce SEO Manager", company: "Shop Optimize" },
-    { name: "James Wilson", role: "Local SEO Expert", company: "Local Digital" },
-    { name: "Anna Schmidt", role: "SEO Content Manager", company: "Content Kings" },
-    { name: "Pierre Durand", role: "SEO Technical Lead", company: "Tech SEO Pro" }
+    { name: "Steve", role: "Responsable SEO e-commerce", company: "Z-discount" },
+    { name: "Larry Smith", role: "SEO Consultant", company: "SEO - Santiano" },
+    { name: "Emma Wilson", role: "SEO Manager", company: "SEO - Santiano" },
+    { name: "Thomas Martin", role: "SEO Content Strategist", company: "SEO - Santiano" },
+    { name: "Sarah Chen", role: "Technical SEO Specialist", company: "SEO - Santiano" },
+    { name: "Michael Brown", role: "SEO Analytics Expert", company: "SEO - Santiano" },
+    { name: "Sophie Dubois", role: "SEO Project Manager", company: "SEO - Santiano" },
+    { name: "David Kim", role: "International SEO Specialist", company: "SEO - Santiano" },
+    { name: "Maria Garcia", role: "E-commerce SEO Manager", company: "SEO - Santiano" },
+    { name: "James Wilson", role: "Local SEO Expert", company: "SEO - Santiano" },
+    { name: "Anna Schmidt", role: "SEO Content Manager", company: "SEO - Santiano" },
+    { name: "Pierre Durand", role: "SEO Technical Lead", company: "SEO - Santiano" }
   ];
 
   return (
