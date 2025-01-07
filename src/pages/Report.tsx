@@ -17,6 +17,7 @@ const Report = () => {
   const { toast } = useToast();
   const [suspect, setSuspect] = useState("");
   const [location, setLocation] = useState("");
+  const [showContinueButton, setShowContinueButton] = useState(false);
 
   const participants = [
     { name: "John", role: "Organisateur", company: "Digital Academy" },
@@ -50,7 +51,7 @@ const Report = () => {
       toast({
         title: "Sophie",
         description: "Vos indications sont pertinentes. Nous avons trouvé sur les bottes de Larry des traces de boue et de sang. Après analyse, le sang appartient bien à Steve.",
-        className: "bg-blue-100 border-blue-200",
+        className: "bg-blue-100 border-blue-200 font-medium",
       });
 
       // Deuxième message après 3 secondes
@@ -58,22 +59,22 @@ const Report = () => {
         toast({
           title: "Sophie",
           description: "Nous avons bien retrouvé le corps de Steve au lac... Je vais prévenir sa femme. Il avait un papier dans sa poche avec ce qui ressemble à un code : seo2025. On vous laisse creuser ce point.",
-          className: "bg-blue-100 border-blue-200",
+          className: "bg-blue-100 border-blue-200 font-medium",
         });
+        setShowContinueButton(true);
       }, 3000);
-
-      // Navigation après les messages
-      setTimeout(() => {
-        navigate("/message");
-      }, 5000);
     } else {
       toast({
         title: "Sophie",
         description: "Malheureusement ces éléments ne nous ont pas permis d'avancer, notre enquête piétine.",
         variant: "destructive",
-        className: "bg-red-100 border-red-200",
+        className: "bg-red-200 border-red-300 text-red-900 font-medium",
       });
     }
+  };
+
+  const handleContinue = () => {
+    navigate("/message");
   };
 
   return (
@@ -123,6 +124,15 @@ const Report = () => {
             >
               Envoyer le rapport
             </Button>
+
+            {showContinueButton && (
+              <Button 
+                onClick={handleContinue}
+                className="w-full bg-green-600 hover:bg-green-700 mt-4"
+              >
+                Continuer
+              </Button>
+            )}
           </div>
         </Card>
       </div>
