@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -9,6 +9,15 @@ const Fin = () => {
     const savedTime = sessionStorage.getItem("gameTime");
     return savedTime ? parseInt(savedTime, 10) : 0;
   });
+
+  // Arrêter le chrono quand on arrive sur cette page
+  useEffect(() => {
+    const player = localStorage.getItem("player");
+    if (!player) {
+      navigate("/");
+      return;
+    }
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -38,7 +47,7 @@ const Fin = () => {
 
         <div className="mt-8 text-center">
           <Button
-            onClick={() => navigate("/success")}
+            onClick={() => navigate("/leaderboard")}
             className="px-8 py-4 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
           >
             Finir l&apos;enquête
