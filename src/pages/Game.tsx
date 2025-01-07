@@ -10,7 +10,7 @@ const Game = () => {
     return savedTime ? parseInt(savedTime, 10) : 0;
   });
   const [isRunning, setIsRunning] = useState(true);
-  const [currentStep, setCurrentStep] = useState(1); // Toujours commencer à l'étape 1
+  const [currentStep, setCurrentStep] = useState(1);
   const [answer, setAnswer] = useState("");
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const Game = () => {
         {currentStep === 1 && (
           <div className="glass-card rounded-2xl p-8 space-y-8 animate-fade-in">
             <p className="text-lg text-center text-gray-700 italic">
-              Il faut savoir lire entre les lignes...
+              Les apparences sont parfois trompeuses... La vérité se cache souvent dans les profondeurs invisibles. Un expert SEO sait que la structure d'une page révèle bien plus que ce que l'œil peut voir.
             </p>
 
             {/* 
