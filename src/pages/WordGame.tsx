@@ -15,7 +15,7 @@ interface WordSection {
 
 const WordGame = () => {
   const navigate = useNavigate();
-  const [answers, setAnswers] = useState<string[]>(["", ""]);
+  const [answers, setAnswers] = useState<string[]>([""]); // Réduit à un seul élément
   const [allCompleted, setAllCompleted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
 
@@ -26,13 +26,6 @@ const WordGame = () => {
       hint: "Je suis le prénom de l'un des créateurs de Google, Et mon nom est caché dans l'algorithme qui classe les pages web. Sans moi, le PageRank n'existerait pas. Qui suis-je ?",
       length: 5,
       isCompleted: answers[0] === "larry"
-    },
-    {
-      id: 2,
-      word: "robots.txt",
-      hint: "Invisible mais essentiel, je guide les voyageurs du web comme un panneau indicateur à l'entrée d'un village. Sans moi, certains chemins restent fermés, tandis que d'autres s'ouvrent sur l'infini.",
-      length: 10,
-      isCompleted: answers[1] === "robots.txt"
     }
   ];
 
@@ -116,7 +109,6 @@ const WordGame = () => {
                     value={answers[index]}
                     onChange={(e) => handleAnswerChange(index, e.target.value)}
                     className="w-full transition-all duration-300 hover:shadow-md mt-4"
-                    disabled={index > 0 && !sections[index - 1].isCompleted}
                     maxLength={section.length}
                   />
 
