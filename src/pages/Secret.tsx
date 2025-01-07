@@ -33,7 +33,7 @@ const Secret = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Entrez le mot de passe"
-          className="bg-gray-800 border-gray-700 text-white"
+          className="bg-transparent border-black text-black placeholder:text-black"
         />
         <Button type="submit" className="w-full">
           Valider
