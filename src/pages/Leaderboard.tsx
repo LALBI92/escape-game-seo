@@ -57,7 +57,8 @@ const Leaderboard = () => {
     return n + (n === 1 ? "er" : "ème");
   };
 
-  const shareText = "Je viens de terminer l'Escape Game SEO ! Un super défi technique, essayez-le vous aussi !";
+  const participantPosition = getParticipantPosition();
+  const shareText = `Je suis arrivé ${getOrdinalNumber(participantPosition)} à "Crime au Bootcamp SEO". Si tu veux tenter de faire mieux : `;
   const shareUrl = window.location.origin;
 
   const shareOnTwitter = () => {
@@ -71,8 +72,6 @@ const Leaderboard = () => {
   const shareOnWhatsApp = () => {
     window.open(`https://wa.me/?text=${encodeURIComponent(shareText + " " + shareUrl)}`, "_blank");
   };
-
-  const participantPosition = getParticipantPosition();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white p-4">
