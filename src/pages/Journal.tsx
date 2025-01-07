@@ -99,7 +99,7 @@ const Journal = () => {
 
         <div className="mt-8 text-center">
           <button
-            onClick={() => navigate("/message")}
+            onClick={() => navigate("/drive")}
             className="neo-button"
           >
             Continuer
