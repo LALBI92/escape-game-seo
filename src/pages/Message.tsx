@@ -1,93 +1,88 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
+import { Card } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 
 const Message = () => {
   const navigate = useNavigate();
-  const [letter, setLetter] = useState("");
-  const [time, setTime] = useState(() => {
-    const savedTime = sessionStorage.getItem("gameTime");
-    return savedTime ? parseInt(savedTime, 10) : 0;
-  });
-  const [isRunning] = useState(true);
 
-  useEffect(() => {
-    let intervalId: ReturnType<typeof setInterval>;
-    if (isRunning) {
-      intervalId = setInterval(() => {
-        setTime((prevTime) => {
-          const newTime = prevTime + 1;
-          sessionStorage.setItem("gameTime", newTime.toString());
-          return newTime;
-        });
-      }, 1000);
-    }
-
-    return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [isRunning]);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs
-      .toString()
-      .padStart(2, "0")}`;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (letter.toUpperCase() === "N") {
-      toast.success("Bravo ! Vous avez trouvé la redirection !");
-      navigate("/final");
-    } else {
-      toast.error("Ce n'est pas la bonne lettre. Essayez encore !");
-    }
-  };
-
-  const handleBack = () => {
+  const handleGameStart = () => {
     navigate("/game");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="glass-card rounded-2xl p-6 mb-4">
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold">Défi SEO</h2>
-            <div className="text-xl font-mono">{formatTime(time)}</div>
-          </div>
-        </div>
-
-        <div className="glass-card rounded-2xl p-8 space-y-8">
-          <p className="text-xl text-center">
-            En venant ici tu es passé par ailleurs mais l'as tu remarqué ?
-          </p>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="min-h-screen bg-[#F3F3F3] p-4 md:p-8">
+      <div className="max-w-2xl mx-auto space-y-6">
+        {/* LinkedIn Post Card */}
+        <Card className="p-6 bg-white shadow-md">
+          {/* Author Section */}
+          <div className="flex items-center space-x-4 mb-4">
+            <div className="w-12 h-12 rounded-full bg-gray-200" />
             <div>
-              <Input
-                type="text"
-                value={letter}
-                onChange={(e) => setLetter(e.target.value)}
-                maxLength={1}
-                className="text-center"
-                placeholder="Entrez la lettre"
-              />
+              <h3 className="font-semibold">Steve Palomba</h3>
+              <p className="text-sm text-gray-500">SEO Manager • 1j</p>
             </div>
-            <Button type="submit" className="w-full">
-              Valider
-            </Button>
-          </form>
-
-          <div className="text-center">
-            <Button variant="outline" onClick={handleBack} className="mt-4">
-              Retourner à la page précédente
-            </Button>
           </div>
+
+          {/* Post Content */}
+          <div className="space-y-4">
+            <p className="text-gray-800">
+              🎉 Grand Jeu Concours SEO ! 🎉
+              Gagnez votre place pour le prochain bootcamp SEO...
+            </p>
+            
+            {/* Placeholder for post image */}
+            <div className="aspect-video bg-gray-100 rounded-lg" />
+
+            {/* Post Stats */}
+            <div className="flex items-center space-x-4 text-sm text-gray-500 pt-4 border-t">
+              <span>❤️ 142</span>
+              <span>💭 38 commentaires</span>
+              <span>🔄 15 partages</span>
+            </div>
+          </div>
+        </Card>
+
+        {/* Comments Section */}
+        <Card className="p-6 bg-white shadow-md">
+          <div className="space-y-6">
+            {/* Comment 1 */}
+            <div className="flex space-x-4">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0" />
+              <div className="flex-1">
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <h4 className="font-semibold">Marie Dubois</h4>
+                  <p className="text-sm text-gray-600">Super intéressant ! Je participe 🙌</p>
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  J'aime • Répondre • 12h
+                </div>
+              </div>
+            </div>
+
+            {/* Comment 2 */}
+            <div className="flex space-x-4">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0" />
+              <div className="flex-1">
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <h4 className="font-semibold">Thomas Martin</h4>
+                  <p className="text-sm text-gray-600">Je viens de résoudre l'énigme, c'est vraiment bien pensé !</p>
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  J'aime • Répondre • 8h
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Game Link Button */}
+        <div className="text-center">
+          <Button 
+            onClick={handleGameStart}
+            className="bg-[#0A66C2] hover:bg-[#004182] text-white"
+          >
+            Participer au concours
+          </Button>
         </div>
       </div>
     </div>
