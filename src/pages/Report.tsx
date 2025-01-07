@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import { X } from "lucide-react";
 
 const Report = () => {
   const navigate = useNavigate();
@@ -47,28 +48,20 @@ const Report = () => {
 
   const handleSubmit = () => {
     if (suspect === "Larry Smith" && location === "Lac Cornu") {
-      // Premier message
       toast({
         title: "Sophie",
-        description: "Vos indications sont pertinentes. Nous avons trouvé sur les bottes de Larry des traces de boue et de sang. Après analyse, le sang appartient bien à Steve.",
+        description: "Vos indications sont pertinentes. Nous avons trouvé sur les bottes de Larry des traces de boue et de sang. Après analyse, le sang appartient bien à Steve. Nous avons retrouvé son corps au lac... Je vais prévenir sa femme. Il avait un papier dans sa poche avec ce qui ressemble à un code : seo2025.",
         className: "bg-blue-100 border-blue-200 font-medium",
+        action: <X className="h-4 w-4 cursor-pointer" onClick={() => toast.dismiss()} />,
       });
-
-      // Deuxième message après 3 secondes
-      setTimeout(() => {
-        toast({
-          title: "Sophie",
-          description: "Nous avons bien retrouvé le corps de Steve au lac... Je vais prévenir sa femme. Il avait un papier dans sa poche avec ce qui ressemble à un code : seo2025. On vous laisse creuser ce point.",
-          className: "bg-blue-100 border-blue-200 font-medium",
-        });
-        setShowContinueButton(true);
-      }, 3000);
+      setShowContinueButton(true);
     } else {
       toast({
         title: "Sophie",
         description: "Malheureusement ces éléments ne nous ont pas permis d'avancer, notre enquête piétine.",
         variant: "destructive",
         className: "bg-red-200 border-red-300 text-red-900 font-medium",
+        action: <X className="h-4 w-4 cursor-pointer" onClick={() => toast.dismiss()} />,
       });
     }
   };
