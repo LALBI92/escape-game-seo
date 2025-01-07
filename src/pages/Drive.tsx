@@ -3,6 +3,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const Drive = () => {
   const navigate = useNavigate();
@@ -14,6 +21,7 @@ const Drive = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
+  const [dialogOpen, setDialogOpen] = useState(true);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -24,7 +32,7 @@ const Drive = () => {
 
   const handleNext = () => {
     if (password === "onlebutecampSEO") {
-      navigate("/word-game");
+      navigate("/wordgame");
     } else {
       toast({
         variant: "destructive",
@@ -37,11 +45,24 @@ const Drive = () => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-4">
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Information importante</DialogTitle>
+            <DialogDescription className="pt-4">
+              Depuis l'ordinateur de Steve nous avons réussi à retrouver dans le Drive du Bootcamp le fichier verrouillé.
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+
       <div className="max-w-4xl mx-auto">
         <div className="glass-card rounded-2xl p-6 mb-4">
           <div className="flex justify-between items-center">
