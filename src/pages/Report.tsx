@@ -20,6 +20,8 @@ const Report = () => {
   const [location, setLocation] = useState("");
   const [showContinueButton, setShowContinueButton] = useState(false);
   const [elapsedTime, setElapsedTime] = useState("00:00");
+  const [shuffledParticipants, setShuffledParticipants] = useState([]);
+  const [shuffledLocations, setShuffledLocations] = useState([]);
 
   useEffect(() => {
     const startTime = sessionStorage.getItem("startTime");
@@ -69,6 +71,21 @@ const Report = () => {
     "Glacier des Bossons",
     "Lac Cornu"
   ];
+
+  useEffect(() => {
+    // Fonction pour mélanger un tableau
+    const shuffleArray = (array) => {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    };
+
+    setShuffledParticipants(shuffleArray(participants));
+    setShuffledLocations(shuffleArray(locations));
+  }, []);
 
   const handleSubmit = () => {
     if (suspect === "Larry Smith" && location === "Lac Cornu") {
@@ -139,7 +156,7 @@ const Report = () => {
                   <SelectValue placeholder="Choisissez un suspect" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border shadow-lg">
-                  {participants.map((participant) => (
+                  {shuffledParticipants.map((participant) => (
                     <SelectItem key={participant.name} value={participant.name}>
                       {participant.name} - {participant.role}
                     </SelectItem>
@@ -155,7 +172,7 @@ const Report = () => {
                   <SelectValue placeholder="Choisissez un lieu" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border shadow-lg">
-                  {locations.map((loc) => (
+                  {shuffledLocations.map((loc) => (
                     <SelectItem key={loc} value={loc}>
                       {loc}
                     </SelectItem>
