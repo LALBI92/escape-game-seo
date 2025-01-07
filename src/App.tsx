@@ -14,6 +14,7 @@ import Redirect from "./pages/Redirect";
 import Report from "./pages/Report";
 import Secret from "./pages/Secret";
 import Fin from "./pages/Fin";
+import Success from "./pages/Success";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
         <Route path="/introduction" element={<Introduction />} />
         <Route path="/game" element={<Game />} />
         <Route path="/wordgame" element={<WordGame />} />
-        <Route path="/success" element={<Liste />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/liste" element={<Liste />} />
         <Route path="/report" element={<Report />} />
         <Route path="/message" element={<Message />} />
         <Route path="/journal" element={<Journal />} />
