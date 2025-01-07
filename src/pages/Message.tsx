@@ -57,8 +57,7 @@ const Message = () => {
                 <div className="bg-gray-50 p-3 rounded-lg">
                   <h4 className="font-semibold">Steve Palomba</h4>
                   <p className="text-sm text-gray-600">
-                    N'hésitez pas à participer, le bootcamp sera intense mais enrichissant ! 
-                    On va parler des dernières techniques SEO et j'ai prévu quelques surprises... 😉
+                    Mot mystère envoyé par MP, on croise les doigts 🤞
                   </p>
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
