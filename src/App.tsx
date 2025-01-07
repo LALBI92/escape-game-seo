@@ -8,6 +8,7 @@ import Introduction from "./pages/Introduction";
 import Game from "./pages/Game";
 import Message from "./pages/Message";
 import DragDropGame from "./pages/DragDropGame";
+import Drive from "./pages/Drive";
 import Final from "./pages/Final";
 import Success from "./pages/Success";
 import Leaderboard from "./pages/Leaderboard";
@@ -29,7 +30,7 @@ const App = () => {
             <Route path="/message" element={<Message />} />
             <Route path="/n" element={<DragDropGame />} />
             <Route path="/journal" element={<Journal />} />
-            <Route path="/final" element={<Final />} />
+            <Route path="/drive" element={<Drive />} />
             <Route path="/success" element={<Success />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/word-game" element={<WordGame />} />
