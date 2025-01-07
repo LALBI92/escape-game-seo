@@ -87,6 +87,13 @@ const Journal = () => {
                 Il l&apos;a fait exprès j&apos;en suis sûr, John a essayé de me pousser alors qu&apos;on marchait près d&apos;un précipice. Heureusement un touriste hollandais m&apos;a attrapé par le bras sinon je pense que s&apos;en était fini de moi. Je vais voir pour prendre un train demain. Mais un 24 décembre je ne sais si je pourrais
               </p>
             </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Vendredi 23 décembre - Minuit</h3>
+              <p className="text-gray-700 leading-relaxed">
+                J&apos;ai trouvé un train pour demain matin il faut que je file. Sur le Drive du Bootcamp j&apos;ai réussi à rentrer dans un fichier verouillé.... Ca sent pas bon pour moi, je savais que ce n&apos;était pas une erreur.
+              </p>
+            </div>
           </div>
         </Card>
 
