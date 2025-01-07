@@ -2,6 +2,15 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 const ChatGPT = () => {
   const navigate = useNavigate();
@@ -10,19 +19,19 @@ const ChatGPT = () => {
     return savedTime ? parseInt(savedTime, 10) : 0;
   });
 
+  const [showDialog, setShowDialog] = useState(true);
+
   useEffect(() => {
-    const player = localStorage.getItem("player");
-    if (!player) {
+    const startTime = sessionStorage.getItem("startTime");
+    if (!startTime) {
       navigate("/");
       return;
     }
 
     const intervalId = setInterval(() => {
-      setTime((prevTime) => {
-        const newTime = prevTime + 1;
-        sessionStorage.setItem("gameTime", newTime.toString());
-        return newTime;
-      });
+      const currentTime = Date.now();
+      const elapsedTime = Math.floor((currentTime - parseInt(startTime)) / 1000);
+      setTime(elapsedTime);
     }, 1000);
 
     return () => clearInterval(intervalId);
@@ -40,6 +49,20 @@ const ChatGPT = () => {
 
   return (
     <div className="min-h-screen bg-[#343541] p-4">
+      <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Information</AlertDialogTitle>
+            <AlertDialogDescription>
+              Sur l'ordinateur de Steve nous avons également trouvé sa session ChatGpt avec ce message énigmatique
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction>Continuer</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between text-white/80 p-2">
@@ -64,7 +87,7 @@ const ChatGPT = () => {
           <div className="bg-[#444654] p-6 rounded-lg">
             <div className="max-w-2xl mx-auto">
               <p className="text-white text-lg">
-                Trouve moi un moyen de laisser un message à une personne qui enquêtera sur ma mort ?
+                Trouve un moyen de restreindre l'accès à mon fichier dans lequel j'écris mon quotidien ?
               </p>
             </div>
           </div>
@@ -76,17 +99,23 @@ const ChatGPT = () => {
                 <div className="w-8 h-8 rounded-full bg-teal-500 flex-shrink-0" />
                 <div className="space-y-4 text-white/90">
                   <p>
-                    Laisser un message à une personne qui enquêtera sur ta mort peut être une démarche délicate et nécessitant une réflexion approfondie. Voici quelques moyens possibles, en fonction de tes intentions et du contexte :
+                    Pour sécuriser un fichier journal personnel, voici quelques options efficaces :
                   </p>
                   
                   <div className="space-y-4">
-                    <h3 className="text-xl font-semibold">1. Lettre ou document physique sécurisé</h3>
+                    <h3 className="text-xl font-semibold">1. Chiffrement de fichier</h3>
                     <ul className="list-disc pl-6 space-y-2">
-                      <li>Rédige une lettre manuscrite ou imprimée où tu exposes ce que tu veux transmettre.</li>
-                      <li>Dépose-la dans un endroit sûr, comme un coffre-fort, ou confie-la à un avocat ou à une personne de confiance avec des instructions spécifiques.</li>
+                      <li>Utilisez un logiciel de chiffrement pour protéger le fichier avec un mot de passe fort</li>
+                      <li>Seules les personnes ayant le mot de passe pourront accéder au contenu</li>
                     </ul>
                     
-                    <h3 className="text-xl font-semibold">2. Boîte aux lettres numérique</h3>
+                    <h3 className="text-xl font-semibold">2. Format spécial</h3>
+                    <ul className="list-disc pl-6 space-y-2">
+                      <li>Convertissez votre journal en format crypté</li>
+                      <li>Utilisez une extension de fichier personnalisée</li>
+                    </ul>
+
+                    <h3 className="text-xl font-semibold">3. Solution recommandée</h3>
                     <div className="mt-4">
                       <Button 
                         onClick={handleDownload}
