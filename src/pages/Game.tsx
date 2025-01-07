@@ -79,7 +79,7 @@ const Game = () => {
         {currentStep === 1 && (
           <div className="glass-card rounded-2xl p-8 space-y-8 animate-fade-in">
             <p className="text-lg text-center text-gray-700 italic">
-              Les apparences sont parfois trompeuses... La vérité se cache souvent dans les profondeurs invisibles. Un expert SEO sait que la structure d'une page révèle bien plus que ce que l'œil peut voir.
+              En se baladant près de la source, j'y ai trouvé un signe. Comme cette vision est douce quand on sait lire entre les lignes.
             </p>
 
             {/* 
@@ -93,6 +93,8 @@ const Game = () => {
            #####     
                      
           La première lettre est A !
+
+          Le mot mystère est : combinaison
           
           */}
 
