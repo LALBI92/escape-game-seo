@@ -17,7 +17,6 @@ const Leaderboard = () => {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  // Simulation de 30 résultats avec des temps variés
   const leaderboard = [
     { pseudo: "Alice", time: 180 }, // 3:00
     { pseudo: "Bob", time: 240 }, // 4:00
@@ -108,6 +107,32 @@ const Leaderboard = () => {
         </div>
 
         <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md text-center">
+          <h2 className="text-2xl font-semibold">Restez connecté ! 🎮</h2>
+          <p className="text-purple-200">
+            Pour connaître la date de sortie du prochain Escape Game SEO, suivez-moi sur les réseaux sociaux !
+          </p>
+          
+          <div className="flex justify-center gap-4 flex-wrap">
+            <Button
+              onClick={() => window.open("https://x.com/BilalDestouches", "_blank")}
+              variant="outline"
+              className="hover-scale bg-white/10"
+            >
+              <Twitter className="mr-2" />
+              Twitter
+            </Button>
+            <Button
+              onClick={() => window.open("https://www.linkedin.com/in/sbdestouches/", "_blank")}
+              variant="outline"
+              className="hover-scale bg-white/10"
+            >
+              <Linkedin className="mr-2" />
+              LinkedIn
+            </Button>
+          </div>
+        </div>
+
+        <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md text-center">
           <h2 className="text-2xl font-semibold">Partagez votre expérience ! 🌟</h2>
           <p className="text-purple-200">
             Si vous avez aimé cet escape game, partagez-le avec vos amis et collègues.
@@ -162,32 +187,6 @@ const Leaderboard = () => {
               ))}
             </div>
           </ScrollArea>
-        </div>
-
-        <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md text-center">
-          <h2 className="text-2xl font-semibold">Restez connecté ! 🎮</h2>
-          <p className="text-purple-200">
-            Pour connaître la date de sortie du prochain Escape Game SEO, suivez-moi sur les réseaux sociaux !
-          </p>
-          
-          <div className="flex justify-center gap-4 flex-wrap">
-            <Button
-              onClick={() => window.open("https://x.com/BilalDestouches", "_blank")}
-              variant="outline"
-              className="hover-scale bg-white/10"
-            >
-              <Twitter className="mr-2" />
-              Twitter
-            </Button>
-            <Button
-              onClick={() => window.open("https://www.linkedin.com/in/sbdestouches/", "_blank")}
-              variant="outline"
-              className="hover-scale bg-white/10"
-            >
-              <Linkedin className="mr-2" />
-              LinkedIn
-            </Button>
-          </div>
         </div>
       </div>
     </div>
