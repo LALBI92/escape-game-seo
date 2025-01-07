@@ -48,7 +48,7 @@ const ChatGPT = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#343541] p-4">
+    <div className="min-h-screen bg-[#343541] p-4 pb-32">
       <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -139,28 +139,30 @@ const ChatGPT = () => {
           </div>
         </div>
 
-        {/* Input Area */}
-        <div className="fixed bottom-4 left-4 right-4 max-w-4xl mx-auto">
-          <div className="bg-[#444654] rounded-lg p-2">
-            <div className="flex items-center gap-2">
-              <input
-                type="text"
-                placeholder="Message ChatGPT"
-                className="flex-1 bg-transparent border-none text-white/90 focus:outline-none p-2"
-                disabled
-              />
-              <div className="flex gap-2">
-                <button className="p-2 text-white/60 hover:text-white/80">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
+        {/* Input Area - Fixed at bottom */}
+        <div className="fixed bottom-0 left-0 right-0 bg-[#343541] p-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-[#444654] rounded-lg p-2">
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  placeholder="Message ChatGPT"
+                  className="flex-1 bg-transparent border-none text-white/90 focus:outline-none p-2"
+                  disabled
+                />
+                <div className="flex gap-2">
+                  <button className="p-2 text-white/60 hover:text-white/80">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
+            <p className="text-center text-white/60 text-sm mt-2">
+              ChatGPT peut faire des erreurs. Envisagez de vérifier les informations importantes.
+            </p>
           </div>
-          <p className="text-center text-white/60 text-sm mt-2">
-            ChatGPT peut faire des erreurs. Envisagez de vérifier les informations importantes.
-          </p>
         </div>
       </div>
     </div>
