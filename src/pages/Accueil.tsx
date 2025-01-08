@@ -32,8 +32,8 @@ const Accueil = () => {
             </CardHeader>
             <CardContent>
               <img 
-                src="/placeholder.svg" 
-                alt="Crime au Bootcamp SEO" 
+                src="/lovable-uploads/84503e85-4c1f-4356-87ca-dc250383588b.png" 
+                alt="Crime au Bootcamp SEO - Scène de crime avec ruban jaune" 
                 className="w-full h-48 object-cover rounded-md mb-4"
               />
               <p className="text-sm text-gray-600">
@@ -50,7 +50,6 @@ const Accueil = () => {
             </CardFooter>
           </Card>
 
-          {/* Escape Game 2 - À venir */}
           <Card className="glass-card opacity-70">
             <CardHeader>
               <CardTitle className="text-xl">Les aventuriers de la migration</CardTitle>
@@ -103,6 +102,7 @@ const Accueil = () => {
               </Button>
             </CardFooter>
           </Card>
+
         </div>
 
         {/* CTA Block */}
