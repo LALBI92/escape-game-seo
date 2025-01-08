@@ -14,33 +14,6 @@ const Accueil = () => {
           <p className="text-lg text-gray-200">Testez vos compétences SEO à travers nos énigmes captivantes</p>
         </div>
 
-        {/* CTA Block */}
-        <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md text-center">
-          <h2 className="text-2xl font-semibold text-white">Restez connecté ! 🎮</h2>
-          <p className="text-purple-200">
-            Pour connaître la date de sortie du prochain Escape Game SEO, suivez-moi sur les réseaux sociaux !
-          </p>
-          
-          <div className="flex justify-center gap-4 flex-wrap">
-            <Button
-              onClick={() => window.open("https://x.com/BilalDestouches", "_blank")}
-              variant="outline"
-              className="hover-scale bg-white/10"
-            >
-              <Twitter className="mr-2" />
-              Twitter
-            </Button>
-            <Button
-              onClick={() => window.open("https://www.linkedin.com/in/sbdestouches/", "_blank")}
-              variant="outline"
-              className="hover-scale bg-white/10"
-            >
-              <Linkedin className="mr-2" />
-              LinkedIn
-            </Button>
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Escape Game 1 - Actif */}
           <Card className="glass-card hover-scale">
@@ -130,6 +103,33 @@ const Accueil = () => {
               </Button>
             </CardFooter>
           </Card>
+        </div>
+
+        {/* CTA Block */}
+        <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md text-center">
+          <h2 className="text-2xl font-semibold text-white">Restez connecté ! 🎮</h2>
+          <p className="text-purple-200">
+            Pour connaître la date de sortie du prochain Escape Game SEO, suivez-moi sur les réseaux sociaux !
+          </p>
+          
+          <div className="flex justify-center gap-4 flex-wrap">
+            <Button
+              onClick={() => window.open("https://x.com/BilalDestouches", "_blank")}
+              variant="outline"
+              className="hover-scale bg-white/10"
+            >
+              <Twitter className="mr-2" />
+              Twitter
+            </Button>
+            <Button
+              onClick={() => window.open("https://www.linkedin.com/in/sbdestouches/", "_blank")}
+              variant="outline"
+              className="hover-scale bg-white/10"
+            >
+              <Linkedin className="mr-2" />
+              LinkedIn
+            </Button>
+          </div>
         </div>
       </div>
     </div>
