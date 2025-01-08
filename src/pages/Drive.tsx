@@ -24,6 +24,18 @@ const Drive = () => {
   const [dialogOpen, setDialogOpen] = useState(true);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setTime((prevTime) => {
+        const newTime = prevTime + 1;
+        sessionStorage.setItem("gameTime", newTime.toString());
+        return newTime;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     if (searchParams.has("123")) {
       setShowPassword(true);
