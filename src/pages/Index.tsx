@@ -21,8 +21,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900">
-      <LeaderboardBanner />
-      
       <div className="flex flex-col items-center justify-center p-4 pt-20">
         <div className="w-full max-w-md space-y-8 fade-in">
           <div className="text-center space-y-4">
