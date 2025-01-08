@@ -138,7 +138,10 @@ const Message = () => {
 
             {/* Comment 2 */}
             <div className="flex space-x-4">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0" />
+              <Avatar className="w-10 h-10">
+                <AvatarImage src="/lovable-uploads/c262b508-111f-42b0-8e05-5eb637fd8b76.png" alt="Thomas Martin" />
+                <AvatarFallback>TM</AvatarFallback>
+              </Avatar>
               <div className="flex-1">
                 <div className="bg-gray-50 p-3 rounded-lg">
                   <h4 className="font-semibold">Thomas Martin</h4>
