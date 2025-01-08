@@ -61,21 +61,7 @@ const Game = () => {
             En se baladant près de la source, j'y ai trouvé un signe. Comme cette vision est douce quand on sait lire entre les lignes.
           </p>
 
-          {/* 
-    
-           #####     
-          #     #    
-         #       #   
-         #       #   
-         #       #   
-          #     #    
-           #####     
-                     
-          La première lettre est C !
-
-          Le mot mystère est : combinaison
-          
-          */}
+          {/* Le mot de passe est le mot : combinaison */}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
