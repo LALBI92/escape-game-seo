@@ -17,25 +17,21 @@ const WordGame = () => {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState<string[]>([""]); 
   const [allCompleted, setAllCompleted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(() => {
-    const savedTime = sessionStorage.getItem("timeLeft");
-    return savedTime ? parseInt(savedTime) : 300;
+  const [time, setTime] = useState(() => {
+    const savedTime = sessionStorage.getItem("gameTime");
+    return savedTime ? parseInt(savedTime) : 0;
   });
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 0) {
-          clearInterval(timer);
-          return 0;
-        }
-        const newTime = prevTime - 1;
-        sessionStorage.setItem("timeLeft", newTime.toString());
+    const interval = setInterval(() => {
+      setTime((prevTime) => {
+        const newTime = prevTime + 1;
+        sessionStorage.setItem("gameTime", newTime.toString());
         return newTime;
       });
     }, 1000);
 
-    return () => clearInterval(timer);
+    return () => clearInterval(interval);
   }, []);
 
   const sections: WordSection[] = [
@@ -96,14 +92,14 @@ const WordGame = () => {
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center mb-8">
           <p className="text-2xl font-bold text-purple-800">
-            {formatTime(timeLeft)}
+            {formatTime(time)}
           </p>
         </div>
 
         <div className="space-y-8">
           {sections.map((section, index) => (
-            <>
-              <Card key={section.id} className="p-6 glass-card animate-fade-up">
+            <div key={section.id}>
+              <Card className="p-6 glass-card animate-fade-up">
                 <div className="space-y-4">
                   <p className="text-gray-700 italic">{section.hint}</p>
                   {renderAnswer(answers[index], section.length)}
@@ -134,7 +130,7 @@ const WordGame = () => {
                   </p>
                 </div>
               )}
-            </>
+            </div>
           ))}
         </div>
 
