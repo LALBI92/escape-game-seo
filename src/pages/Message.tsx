@@ -47,7 +47,6 @@ const Message = () => {
           {formatTime(time)}
         </div>
 
-        {/* LinkedIn Post Card */}
         <Card className="p-6 bg-white shadow-md">
           {/* Author Section */}
           <div className="flex items-center justify-between mb-4">
@@ -103,10 +102,13 @@ const Message = () => {
           </div>
 
           {/* Comments Section */}
-          <div className="space-y-6">
+          <div className="mt-6 space-y-6">
             {/* Steve's Comment */}
             <div className="flex space-x-4">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0" />
+              <Avatar className="w-10 h-10">
+                <AvatarImage src="/lovable-uploads/e5425343-e516-4a73-9c07-96a439dc77ea.png" alt="Steve Palomba" />
+                <AvatarFallback>SP</AvatarFallback>
+              </Avatar>
               <div className="flex-1">
                 <div className="bg-gray-50 p-3 rounded-lg">
                   <h4 className="font-semibold">Steve Palomba</h4>
@@ -120,7 +122,7 @@ const Message = () => {
               </div>
             </div>
 
-            {/* Comment 1 */}
+            {/* Other comments */}
             <div className="flex space-x-4">
               <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0" />
               <div className="flex-1">
@@ -165,10 +167,11 @@ const Message = () => {
                 </div>
               </div>
             </div>
+
           </div>
 
           {/* Game Link Button */}
-          <div className="text-center">
+          <div className="text-center mt-6">
             <Button 
               onClick={handleGameStart}
               className="bg-[#0A66C2] hover:bg-[#004182] text-white"
