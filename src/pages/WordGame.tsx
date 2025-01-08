@@ -121,7 +121,7 @@ const WordGame = () => {
                 </div>
               </Card>
               {index === 0 && (
-                <div className="text-center space-y-4 animate-fade-up">
+                <div className="text-center space-y-4 animate-fade-up mt-12">
                   <p className="text-4xl font-bold text-black">
                     ⏰ 1703385600
                   </p>
