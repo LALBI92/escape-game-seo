@@ -87,8 +87,12 @@ const Message = () => {
               Bonne chance à tous ! 🏔️ #SEO #Bootcamp #Chamonix
             </p>
             
-            {/* Placeholder for post image */}
-            <div className="aspect-video bg-gray-100 rounded-lg" />
+            {/* Post image */}
+            <img 
+              src="/lovable-uploads/069ae9d2-8b6b-408c-9f27-f1caafdce5cc.png" 
+              alt="Bootcamp SEO 3ème édition" 
+              className="w-full rounded-lg"
+            />
 
             {/* Post Stats */}
             <div className="flex items-center space-x-4 text-sm text-gray-500 pt-4 border-t">
