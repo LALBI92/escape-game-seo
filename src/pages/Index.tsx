@@ -25,10 +25,10 @@ const Index = () => {
         <div className="w-full max-w-md space-y-8 fade-in">
           <div className="text-center space-y-4">
             <h1 className="text-5xl font-bold tracking-tight text-white">
-              Escape Game SEO
+              Crime au Bootcamp SEO
             </h1>
             <p className="text-purple-200 text-lg">
-              Testez vos compétences en SEO technique
+              Enquêtez sur la disparition de Steve, responsable SEO chez Z-Discount
             </p>
             
             <div className="bg-red-500/20 border border-red-300/20 rounded-lg p-4 mt-6 backdrop-blur-sm">
@@ -42,7 +42,7 @@ const Index = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <label htmlFor="name" className="block text-sm font-medium text-purple-100">
-                  Nom
+                  Pseudo
                 </label>
                 <input
                   id="name"
