@@ -12,9 +12,6 @@ const Game = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [answer, setAnswer] = useState("");
 
-  // Le mot de passe est encodé en base64 et inversé
-  const encodedPassword = "bm9zaWFuaWJtb2M="; // "combinaison" encodé
-
   useEffect(() => {
     const startTime = sessionStorage.getItem("startTime");
     if (!startTime) {
@@ -33,9 +30,7 @@ const Game = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Décode et vérifie le mot de passe
-    const decodedPassword = atob(encodedPassword).split("").reverse().join("");
-    if (currentStep === 1 && answer.toLowerCase() === decodedPassword) {
+    if (currentStep === 1 && answer.toLowerCase() === "combinaison") {
       setCurrentStep(2);
       setAnswer("");
       toast.success("Bravo ! Passons à l'étape suivante.");
@@ -65,6 +60,22 @@ const Game = () => {
           <p className="text-lg text-center text-gray-700 italic">
             En se baladant près de la source, j'y ai trouvé un signe. Comme cette vision est douce quand on sait lire entre les lignes.
           </p>
+
+          {/* 
+    
+           #####     
+          #     #    
+         #       #   
+         #       #   
+         #       #   
+          #     #    
+           #####     
+                     
+          La première lettre est C !
+
+          Le mot mystère est : combinaison
+          
+          */}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
