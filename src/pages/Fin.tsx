@@ -51,6 +51,7 @@ const Fin = () => {
               <p className="mb-6">
                 Alors bien sûr, maintenant tout le monde sait depuis les leaks Google que le comportement des utilisateurs est important. Je vais donc continuer d&apos;envoyer du trafic sur mes pages. Également, pour ma part, je travaille toujours pour mes clients avec des réseaux de sites privés. C&apos;est plus stable, je fais des sites thématisés avec des liens homepage. Marre des backlinks qui sautent et des pages pas indexées. Mais le vrai secret en 2025 pour ranker c&apos;est...
               </p>
+              <p className="text-gray-500 italic mb-2">Malheureusement, la suite du texte est illisible...</p>
               <p className="blur-sm select-none">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptates, quod, voluptatum, voluptas quae voluptatem quibusdam voluptate quas quos quidem nesciunt. Quisquam, quae. Quisquam voluptates, quod, voluptatum, voluptas quae voluptatem quibusdam voluptate quas quos quidem nesciunt. Quisquam, quae.
               </p>
