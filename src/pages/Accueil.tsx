@@ -52,7 +52,7 @@ const Accueil = () => {
 
           <Card className="glass-card opacity-70">
             <CardHeader>
-              <CardTitle className="text-xl">Les aventuriers de la migration</CardTitle>
+              <CardTitle className="text-xl">La Migration Infernale</CardTitle>
               <div className="flex items-center gap-2 mt-2">
                 <div className="flex gap-1">
                   <StarIcon className="w-5 h-5 fill-yellow-400 text-yellow-400" />
@@ -66,11 +66,11 @@ const Accueil = () => {
             </CardHeader>
             <CardContent>
               <img 
-                src="/placeholder.svg" 
-                alt="Les aventuriers de la migration" 
-                className="w-full h-48 object-cover rounded-md mb-4 filter grayscale"
+                src="/lovable-uploads/270fd362-80b9-46f2-b03a-1f1f86d717a9.png" 
+                alt="La Migration Infernale" 
+                className="w-full h-48 object-cover rounded-md mb-4"
               />
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-white">
                 Un nouveau défi SEO arrive bientôt...
               </p>
             </CardContent>
