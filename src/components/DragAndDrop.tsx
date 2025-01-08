@@ -10,6 +10,7 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [shuffledAnimals, setShuffledAnimals] = useState<Array<{ id: string; year: string; image: string }>>([]);
 
+  // Ordre des animaux à gauche: colibri, panda, pigeon, pingouin
   const animals = [
     { id: 'colibri', year: '2013', image: '/lovable-uploads/56433f57-00aa-4215-b868-cf92442ca7dd.png' },
     { id: 'panda', year: '2011', image: '/lovable-uploads/dd69357d-a560-48d6-b92f-e97e4190c6b8.png' },
@@ -17,10 +18,12 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
     { id: 'pingouin', year: '2012', image: '/lovable-uploads/a26da636-b58c-484a-bf9b-79451c664172.png' }
   ];
 
+  // Années triées chronologiquement pour l'affichage à droite
+  const sortedYears = [...animals].sort((a, b) => parseInt(a.year) - parseInt(b.year));
+
   useEffect(() => {
-    // Mélanger les animaux au chargement du composant
-    const shuffled = [...animals].sort(() => Math.random() - 0.5);
-    setShuffledAnimals(shuffled);
+    // On garde l'ordre défini dans animals
+    setShuffledAnimals(animals);
   }, []);
 
   const handleDragStart = (e: React.DragEvent, imageId: string) => {
@@ -82,7 +85,7 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          {animals.map((animal) => {
+          {sortedYears.map((animal) => {
             const matchedImage = getMatchedImage(animal.year);
             return (
               <div
