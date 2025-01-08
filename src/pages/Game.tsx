@@ -47,48 +47,45 @@ const Game = () => {
   };
 
   return (
-    <>
-      {/* Le mot de passe est : combinaison */}
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="glass-card rounded-2xl p-6 mb-4">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Gagne ta place pour notre bootcamp SEO à Chamonix</h2>
-              <div className="text-xl font-mono">{formatTime(time)}</div>
-            </div>
-          </div>
-
-          <div className="glass-card rounded-2xl p-8 space-y-8 animate-fade-in">
-            <p className="text-lg text-center text-gray-700 italic">
-              En se baladant près de la source, j'y ai trouvé un signe. Comme cette vision est douce quand on sait lire entre les lignes.
-            </p>
-
-            <p style={{display: 'none'}}>Le mot de passe est le mot : combinaison</p>
-            <div data-password="combinaison"></div>
-            <meta name="password" content="combinaison" />
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <input
-                  type="text"
-                  id="answer"
-                  value={answer}
-                  onChange={(e) => setAnswer(e.target.value)}
-                  className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
-                  placeholder="Votre réponse..."
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
-              >
-                Valider
-              </button>
-            </form>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-4">
+      {/* <!-- Le mot de passe est : combinaison --> */}
+      <div dangerouslySetInnerHTML={{ __html: '<!-- Le mot de passe est : combinaison -->' }} />
+      <div id="password" data-value="combinaison" style={{display: 'none'}}>Le mot de passe est : combinaison</div>
+      <meta name="password" content="combinaison" />
+      <div className="max-w-4xl mx-auto">
+        <div className="glass-card rounded-2xl p-6 mb-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-bold">Gagne ta place pour notre bootcamp SEO à Chamonix</h2>
+            <div className="text-xl font-mono">{formatTime(time)}</div>
           </div>
         </div>
+
+        <div className="glass-card rounded-2xl p-8 space-y-8 animate-fade-in">
+          <p className="text-lg text-center text-gray-700 italic">
+            En se baladant près de la source, j'y ai trouvé un signe. Comme cette vision est douce quand on sait lire entre les lignes.
+          </p>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <input
+                type="text"
+                id="answer"
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+                className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
+                placeholder="Votre réponse..."
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              Valider
+            </button>
+          </form>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
