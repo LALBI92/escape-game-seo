@@ -8,6 +8,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { InfoIcon } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Message = () => {
   const navigate = useNavigate();
@@ -51,7 +52,10 @@ const Message = () => {
           {/* Author Section */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 rounded-full bg-gray-200" />
+              <Avatar className="w-12 h-12">
+                <AvatarImage src="/lovable-uploads/1d974c80-6ea8-43c8-b590-5beb9cdbbcff.png" alt="John Macmuller" />
+                <AvatarFallback>JM</AvatarFallback>
+              </Avatar>
               <div>
                 <h3 className="font-semibold">John Macmuller</h3>
                 <p className="text-sm text-gray-500">Organisateur Bootcamp SEO • 1j</p>
@@ -93,10 +97,8 @@ const Message = () => {
               <span>🔄 15 partages</span>
             </div>
           </div>
-        </Card>
 
-        {/* Comments Section */}
-        <Card className="p-6 bg-white shadow-md">
+          {/* Comments Section */}
           <div className="space-y-6">
             {/* Steve's Comment */}
             <div className="flex space-x-4">
@@ -160,17 +162,17 @@ const Message = () => {
               </div>
             </div>
           </div>
-        </Card>
 
-        {/* Game Link Button */}
-        <div className="text-center">
-          <Button 
-            onClick={handleGameStart}
-            className="bg-[#0A66C2] hover:bg-[#004182] text-white"
-          >
-            Participer au concours
-          </Button>
-        </div>
+          {/* Game Link Button */}
+          <div className="text-center">
+            <Button 
+              onClick={handleGameStart}
+              className="bg-[#0A66C2] hover:bg-[#004182] text-white"
+            >
+              Participer au concours
+            </Button>
+          </div>
+        </Card>
       </div>
     </div>
   );
