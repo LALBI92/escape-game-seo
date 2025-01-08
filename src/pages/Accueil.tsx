@@ -16,6 +16,7 @@ const Accueil = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Escape Game 1 - Actif */}
+
           <Card className="glass-card hover-scale">
             <CardHeader>
               <CardTitle className="text-xl">Crime au Bootcamp SEO</CardTitle>
@@ -43,7 +44,7 @@ const Accueil = () => {
             <CardFooter>
               <Button 
                 className="w-full neo-button text-black"
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/inscription")}
               >
                 Participer
               </Button>
@@ -137,3 +138,4 @@ const Accueil = () => {
 };
 
 export default Accueil;
+

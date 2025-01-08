@@ -19,8 +19,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/accueil" element={<Accueil />} />
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Accueil />} />
+        <Route path="/inscription" element={<Index />} />
         <Route path="/introduction" element={<Introduction />} />
         <Route path="/game" element={<Game />} />
         <Route path="/wordgame" element={<WordGame />} />
