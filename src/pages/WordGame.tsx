@@ -38,7 +38,7 @@ const WordGame = () => {
     {
       id: 1,
       word: "larry",
-      hint: "Je suis le prénom de l'un des créateurs de Google, Et mon nom est caché dans l'algorithme qui classe les pages web. Sans moi, le PageRank n'existerait pas. Qui suis-je ?",
+      hint: "👥 Je suis le prénom de l'un des créateurs de Google, Et mon nom est caché dans l'algorithme qui classe les pages web. Sans moi, le PageRank n'existerait pas. Qui suis-je ?",
       length: 5,
       isCompleted: answers[0] === "larry"
     }
@@ -123,10 +123,10 @@ const WordGame = () => {
               {index === 0 && (
                 <div className="text-center space-y-4 animate-fade-up">
                   <p className="text-4xl font-bold text-black">
-                    WHEN : 1703385600
+                    ⏰ 1703385600
                   </p>
                   <p className="text-4xl font-bold text-black">
-                    WHERE : 45.957506, 6.848237
+                    📍 45.957506, 6.848237
                   </p>
                 </div>
               )}
