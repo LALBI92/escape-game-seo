@@ -19,10 +19,15 @@ const Accueil = () => {
           <Card className="glass-card hover-scale">
             <CardHeader>
               <CardTitle className="text-xl">Crime au Bootcamp SEO</CardTitle>
-              <div className="flex gap-1 mt-2">
-                <StarIcon className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <StarIcon className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                <Star className="w-5 h-5 text-gray-400" />
+              <div className="flex items-center gap-2 mt-2">
+                <div className="flex gap-1">
+                  <StarIcon className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  <StarIcon className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  <Star className="w-5 h-5 text-gray-400" />
+                  <Star className="w-5 h-5 text-gray-400" />
+                  <Star className="w-5 h-5 text-gray-400" />
+                </div>
+                <span className="text-sm text-gray-600">Difficulté: 2/5</span>
               </div>
             </CardHeader>
             <CardContent>
@@ -37,7 +42,7 @@ const Accueil = () => {
             </CardContent>
             <CardFooter>
               <Button 
-                className="w-full neo-button"
+                className="w-full neo-button text-black"
                 onClick={() => navigate("/")}
               >
                 Participer
@@ -48,12 +53,22 @@ const Accueil = () => {
           {/* Escape Game 2 - À venir */}
           <Card className="glass-card opacity-70">
             <CardHeader>
-              <CardTitle className="text-xl">Prochainement...</CardTitle>
+              <CardTitle className="text-xl">Les aventuriers de la migration</CardTitle>
+              <div className="flex items-center gap-2 mt-2">
+                <div className="flex gap-1">
+                  <StarIcon className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  <StarIcon className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  <StarIcon className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  <Star className="w-5 h-5 text-gray-400" />
+                  <Star className="w-5 h-5 text-gray-400" />
+                </div>
+                <span className="text-sm text-gray-600">Difficulté: 3/5</span>
+              </div>
             </CardHeader>
             <CardContent>
               <img 
                 src="/placeholder.svg" 
-                alt="Prochain Escape Game" 
+                alt="Les aventuriers de la migration" 
                 className="w-full h-48 object-cover rounded-md mb-4 filter grayscale"
               />
               <p className="text-sm text-gray-600">
