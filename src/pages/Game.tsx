@@ -62,6 +62,7 @@ const Game = () => {
           </p>
 
           {/* Le mot de passe est le mot : combinaison */}
+          <div dangerouslySetInnerHTML={{ __html: '<!-- Le mot de passe est le mot : combinaison -->' }} />
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
