@@ -122,12 +122,15 @@ const Message = () => {
               </div>
             </div>
 
-            {/* Other comments */}
+            {/* Brahim's comment (previously Marie) */}
             <div className="flex space-x-4">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0" />
+              <Avatar className="w-10 h-10">
+                <AvatarImage src="/lovable-uploads/70145680-20ea-4822-8733-66af3813c5e2.png" alt="Brahim Diaffat" />
+                <AvatarFallback>BD</AvatarFallback>
+              </Avatar>
               <div className="flex-1">
                 <div className="bg-gray-50 p-3 rounded-lg">
-                  <h4 className="font-semibold">Marie Dubois</h4>
+                  <h4 className="font-semibold">Brahim Diaffat</h4>
                   <p className="text-sm text-gray-600">Je participe ! L'énigme est vraiment bien pensée 🤔</p>
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
@@ -154,23 +157,6 @@ const Message = () => {
                 </div>
               </div>
             </div>
-
-            {/* Comment 3 */}
-            <div className="flex space-x-4">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0" />
-              <div className="flex-1">
-                <div className="bg-gray-50 p-3 rounded-lg">
-                  <h4 className="font-semibold">Sophie Bernard</h4>
-                  <p className="text-sm text-gray-600">
-                    Un bootcamp à Chamonix ? Trop bien ! Je tente ma chance 🎯
-                  </p>
-                </div>
-                <div className="text-xs text-gray-500 mt-1">
-                  J'aime • Répondre • 5h
-                </div>
-              </div>
-            </div>
-
           </div>
 
           {/* Game Link Button */}
