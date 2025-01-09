@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Share2, Twitter, Linkedin, MessageCircle } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Leaderboard = () => {
   const navigate = useNavigate();
@@ -10,6 +12,36 @@ const Leaderboard = () => {
     const savedTime = sessionStorage.getItem("gameTime");
     return savedTime ? parseInt(savedTime, 10) : 0;
   });
+
+  useEffect(() => {
+    const updatePlayerTime = async () => {
+      const player = localStorage.getItem("player");
+      if (!player || !finalTime) return;
+
+      const { email } = JSON.parse(player);
+      
+      try {
+        const { error } = await supabase
+          .from('participants')
+          .update({ time_seconds: finalTime })
+          .eq('email', email);
+
+        if (error) {
+          console.error('Error updating time:', error);
+          toast.error("Erreur lors de la sauvegarde du score");
+          return;
+        }
+
+        console.log('Time updated successfully:', finalTime);
+        toast.success("Score sauvegardé !");
+      } catch (error) {
+        console.error('Error:', error);
+        toast.error("Erreur lors de la sauvegarde du score");
+      }
+    };
+
+    updatePlayerTime();
+  }, [finalTime]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
