@@ -1,16 +1,40 @@
 import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const LeaderboardBanner = () => {
   const [position, setPosition] = useState(0);
+  const [leaderboard, setLeaderboard] = useState<{ position: string; name: string; time: string }[]>([]);
   
-  // Données de classement avec positions
-  const leaderboard = [
-    { position: "1er", name: "Eva", time: "03:45" },
-    { position: "2ème", name: "Bob", time: "04:32" },
-    { position: "3ème", name: "Charlie", time: "05:10" },
-    { position: "4ème", name: "David", time: "05:45" },
-    { position: "5ème", name: "Alice", time: "06:15" },
-  ];
+  useEffect(() => {
+    const fetchLeaderboard = async () => {
+      const { data, error } = await supabase
+        .from('participants')
+        .select('pseudo, time_seconds')
+        .order('time_seconds', { ascending: true })
+        .limit(5);
+
+      if (error) {
+        console.error('Error fetching leaderboard:', error);
+        return;
+      }
+
+      const formattedData = data.map((player, index) => ({
+        position: `${index + 1}${index === 0 ? 'er' : 'ème'}`,
+        name: player.pseudo,
+        time: formatTime(player.time_seconds)
+      }));
+
+      setLeaderboard(formattedData);
+    };
+
+    fetchLeaderboard();
+  }, []);
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+  };
 
   const content = leaderboard.map(player => 
     `${player.position} : ${player.name} en ${player.time}`

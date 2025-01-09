@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import LeaderboardBanner from "../components/LeaderboardBanner";
 
 const Index = () => {
@@ -8,20 +9,49 @@ const Index = () => {
   const [name, setName] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (!email || !name) {
       toast.error("Veuillez remplir tous les champs");
       return;
     }
-    localStorage.setItem("player", JSON.stringify({ name, email }));
-    toast.success("Que l'enquête commence !");
-    navigate("/introduction");
+
+    try {
+      const { error } = await supabase
+        .from('participants')
+        .insert([
+          { 
+            pseudo: name,
+            email: email,
+            time_seconds: 0 // Sera mis à jour à la fin du jeu
+          }
+        ]);
+
+      if (error) {
+        if (error.code === '23505') { // Code pour violation de contrainte unique
+          if (error.message.includes('email')) {
+            toast.error("Cet email a déjà participé au jeu");
+          } else if (error.message.includes('pseudo')) {
+            toast.error("Ce pseudo est déjà pris");
+          }
+          return;
+        }
+        throw error;
+      }
+
+      localStorage.setItem("player", JSON.stringify({ name, email }));
+      toast.success("Que l'enquête commence !");
+      navigate("/introduction");
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error("Une erreur est survenue lors de l'inscription");
+    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900">
-      {/* New Header */}
+      {/* Header */}
       <header className="w-full bg-white shadow-md px-4 py-3">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="w-24">
@@ -98,6 +128,8 @@ const Index = () => {
           </p>
         </div>
       </div>
+
+      <LeaderboardBanner />
     </div>
   );
 };
