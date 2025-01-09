@@ -11,7 +11,7 @@ const LeaderboardBanner = () => {
       .select('pseudo, time_seconds')
       .gt('time_seconds', 0)
       .order('time_seconds', { ascending: true })
-      .limit(5);
+      .limit(3);
 
     if (error) {
       console.error('Error fetching leaderboard:', error);
@@ -20,8 +20,9 @@ const LeaderboardBanner = () => {
 
     console.log('Leaderboard data:', data);
 
+    const positions = ['Meilleur score', 'Second', 'Troisième'];
     const formattedData = data.map((player, index) => ({
-      position: `${index + 1}${index === 0 ? 'er' : 'ème'}`,
+      position: positions[index],
       name: player.pseudo,
       time: formatTime(player.time_seconds)
     }));
@@ -39,7 +40,7 @@ const LeaderboardBanner = () => {
       .on(
         'postgres_changes',
         {
-          event: '*', // Listen to all changes (INSERT, UPDATE, DELETE)
+          event: '*',
           schema: 'public',
           table: 'participants'
         },
@@ -62,7 +63,7 @@ const LeaderboardBanner = () => {
   };
 
   const content = leaderboard.map(player => 
-    `${player.position} : ${player.name} en ${player.time}`
+    `${player.position} ${player.name} en ${player.time}`
   ).join(" • ");
 
   useEffect(() => {
@@ -74,7 +75,7 @@ const LeaderboardBanner = () => {
   }, [content.length]);
 
   return (
-    <div className="mt-8 w-full bg-amber-400 text-gray-900 py-3 overflow-hidden font-medium">
+    <div className="w-full bg-amber-400 text-gray-900 py-3 overflow-hidden font-medium">
       <div 
         className="whitespace-nowrap text-lg"
         style={{ 
