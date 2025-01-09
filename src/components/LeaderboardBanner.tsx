@@ -10,6 +10,7 @@ const LeaderboardBanner = () => {
       const { data, error } = await supabase
         .from('participants')
         .select('pseudo, time_seconds')
+        .gt('time_seconds', 0) // Only get participants who have completed the game
         .order('time_seconds', { ascending: true })
         .limit(5);
 
