@@ -18,9 +18,32 @@ const Index = () => {
     }
 
     try {
-      console.log("Tentative d'insertion avec:", { pseudo: name, email, time_seconds: 0 });
-      
-      const { data, error } = await supabase
+      // Vérifions d'abord si le pseudo existe déjà
+      const { data: pseudoCheck } = await supabase
+        .from('participants')
+        .select('pseudo')
+        .eq('pseudo', name)
+        .single();
+
+      if (pseudoCheck) {
+        toast.error("Ce pseudo est déjà utilisé. Veuillez en choisir un autre.");
+        return;
+      }
+
+      // Vérifions ensuite si l'email existe déjà
+      const { data: emailCheck } = await supabase
+        .from('participants')
+        .select('email')
+        .eq('email', email)
+        .single();
+
+      if (emailCheck) {
+        toast.error("Cet email a déjà participé au jeu. Vous ne pouvez participer qu'une seule fois.");
+        return;
+      }
+
+      // Si les vérifications sont passées, on peut créer le participant
+      const { error: insertError } = await supabase
         .from('participants')
         .insert([
           { 
@@ -28,21 +51,12 @@ const Index = () => {
             email: email,
             time_seconds: 0
           }
-        ])
-        .select();
+        ]);
 
-      console.log("Résultat de l'insertion:", { data, error });
-
-      if (error) {
-        if (error.code === '23505') { // Code pour violation de contrainte unique
-          if (error.message.includes('email')) {
-            toast.error("Cet email a déjà participé au jeu");
-          } else if (error.message.includes('pseudo')) {
-            toast.error("Ce pseudo est déjà pris");
-          }
-          return;
-        }
-        throw error;
+      if (insertError) {
+        console.error('Erreur lors de l\'insertion:', insertError);
+        toast.error("Une erreur est survenue lors de l'inscription");
+        return;
       }
 
       localStorage.setItem("player", JSON.stringify({ name, email }));
