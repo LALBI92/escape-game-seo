@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { useGameTimer } from "@/hooks/useGameTimer";
 
