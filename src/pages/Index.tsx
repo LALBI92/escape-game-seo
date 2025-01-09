@@ -18,15 +18,20 @@ const Index = () => {
     }
 
     try {
-      const { error } = await supabase
+      console.log("Tentative d'insertion avec:", { pseudo: name, email, time_seconds: 0 });
+      
+      const { data, error } = await supabase
         .from('participants')
         .insert([
           { 
             pseudo: name,
             email: email,
-            time_seconds: 0 // Sera mis à jour à la fin du jeu
+            time_seconds: 0
           }
-        ]);
+        ])
+        .select();
+
+      console.log("Résultat de l'insertion:", { data, error });
 
       if (error) {
         if (error.code === '23505') { // Code pour violation de contrainte unique
@@ -44,7 +49,7 @@ const Index = () => {
       toast.success("Que l'enquête commence !");
       navigate("/introduction");
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Erreur détaillée:', error);
       toast.error("Une erreur est survenue lors de l'inscription");
     }
   };
