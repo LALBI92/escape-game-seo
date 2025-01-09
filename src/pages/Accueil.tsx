@@ -19,7 +19,7 @@ const Accueil = () => {
             />
           </div>
           <p className="text-gray-700 text-sm md:text-base">
-            Escape Game SEO est un concept réalisé par l'agence BetterCallBil
+            Escape Game SEO est un concept réalisé ❤️ par BetterCallBil
           </p>
         </div>
       </header>
