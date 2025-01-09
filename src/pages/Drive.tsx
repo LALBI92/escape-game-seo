@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { useGameTimer } from "@/hooks/useGameTimer";
 import {
   Dialog,
   DialogContent,
@@ -15,25 +16,10 @@ const Drive = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
-  const [time, setTime] = useState(() => {
-    const savedTime = sessionStorage.getItem("gameTime");
-    return savedTime ? parseInt(savedTime, 10) : 0;
-  });
+  const time = useGameTimer();
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [dialogOpen, setDialogOpen] = useState(true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime((prevTime) => {
-        const newTime = prevTime + 1;
-        sessionStorage.setItem("gameTime", newTime.toString());
-        return newTime;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);

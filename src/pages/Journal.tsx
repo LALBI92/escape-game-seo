@@ -1,13 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
+import { useGameTimer } from "@/hooks/useGameTimer";
 
 const Journal = () => {
   const navigate = useNavigate();
-  const [time, setTime] = useState(() => {
-    const savedTime = sessionStorage.getItem("gameTime");
-    return savedTime ? parseInt(savedTime, 10) : 0;
-  });
+  const time = useGameTimer();
 
   useEffect(() => {
     const player = localStorage.getItem("player");
@@ -15,16 +12,6 @@ const Journal = () => {
       navigate("/");
       return;
     }
-
-    const intervalId = setInterval(() => {
-      setTime((prevTime) => {
-        const newTime = prevTime + 1;
-        sessionStorage.setItem("gameTime", newTime.toString());
-        return newTime;
-      });
-    }, 1000);
-
-    return () => clearInterval(intervalId);
   }, [navigate]);
 
   return (

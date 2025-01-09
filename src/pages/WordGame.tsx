@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
+import { useGameTimer } from "@/hooks/useGameTimer";
 
 interface WordSection {
   id: number;
@@ -17,22 +18,7 @@ const WordGame = () => {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState<string[]>([""]); 
   const [allCompleted, setAllCompleted] = useState(false);
-  const [time, setTime] = useState(() => {
-    const savedTime = sessionStorage.getItem("gameTime");
-    return savedTime ? parseInt(savedTime) : 0;
-  });
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime((prevTime) => {
-        const newTime = prevTime + 1;
-        sessionStorage.setItem("gameTime", newTime.toString());
-        return newTime;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const time = useGameTimer();
 
   const sections: WordSection[] = [
     {
