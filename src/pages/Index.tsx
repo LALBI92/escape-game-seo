@@ -24,7 +24,7 @@ const Index = () => {
       {/* New Header */}
       <header className="w-full bg-white shadow-md px-4 py-3">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <div className="w-32">
+          <div className="w-24">
             <img 
               src="/lovable-uploads/2973cd3d-cf10-4560-8b67-bb9be826ba3c.png" 
               alt="Better Call Bil Logo" 
