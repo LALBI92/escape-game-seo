@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Share2, Twitter, Linkedin, MessageCircle } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import ShareButtons from "@/components/leaderboard/ShareButtons";
+import SocialLinks from "@/components/leaderboard/SocialLinks";
+import LeaderboardList from "@/components/leaderboard/LeaderboardList";
 
 const Leaderboard = () => {
-  const navigate = useNavigate();
   const [finalTime] = useState(() => {
     const savedTime = sessionStorage.getItem("gameTime");
     return savedTime ? parseInt(savedTime, 10) : 0;
@@ -16,7 +14,7 @@ const Leaderboard = () => {
   const [participantPosition, setParticipantPosition] = useState(0);
 
   const fetchLeaderboard = async () => {
-    console.log('Fetching leaderboard data...'); // Debug log
+    console.log('Fetching leaderboard data...');
     const { data, error } = await supabase
       .from('participants')
       .select('pseudo, time_seconds')
@@ -29,14 +27,13 @@ const Leaderboard = () => {
       return;
     }
 
-    console.log('Fetched data:', data); // Debug log
+    console.log('Fetched data:', data);
 
     setLeaderboardData(data.map(entry => ({
       pseudo: entry.pseudo,
       time: entry.time_seconds
     })));
 
-    // Calculate participant position
     if (finalTime > 0) {
       const position = data.findIndex(entry => finalTime <= entry.time_seconds) + 1;
       setParticipantPosition(position === 0 ? data.length + 1 : position);
@@ -46,13 +43,12 @@ const Leaderboard = () => {
   useEffect(() => {
     fetchLeaderboard();
     
-    // Subscribe to realtime changes
     const channel = supabase
       .channel('leaderboard_changes')
       .on(
         'postgres_changes',
         {
-          event: '*', // Listen to all changes
+          event: '*',
           schema: 'public',
           table: 'participants'
         },
@@ -75,7 +71,7 @@ const Leaderboard = () => {
 
       const { email } = JSON.parse(player);
       
-      console.log('Updating player time:', { email, finalTime }); // Debug log
+      console.log('Updating player time:', { email, finalTime });
       
       try {
         const { error } = await supabase
@@ -106,37 +102,12 @@ const Leaderboard = () => {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const getPositionEmoji = (position: number) => {
-    switch (position) {
-      case 0:
-        return "🥇";
-      case 1:
-        return "🥈";
-      case 2:
-        return "🥉";
-      default:
-        return "🎮";
-    }
-  };
-
   const getOrdinalNumber = (n: number) => {
     return n + (n === 1 ? "er" : "ème");
   };
 
   const shareText = `Je suis arrivé ${getOrdinalNumber(participantPosition)} à "Crime au Bootcamp SEO". Si tu veux tenter de faire mieux : `;
   const shareUrl = window.location.origin;
-
-  const shareOnTwitter = () => {
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, "_blank");
-  };
-
-  const shareOnLinkedIn = () => {
-    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, "_blank");
-  };
-
-  const shareOnWhatsApp = () => {
-    window.open(`https://wa.me/?text=${encodeURIComponent(shareText + " " + shareUrl)}`, "_blank");
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white p-4">
@@ -147,7 +118,7 @@ const Leaderboard = () => {
             Votre temps : {formatTime(finalTime)}
           </p>
           <p className="text-xl text-amber-400 font-semibold">
-            Vous êtes {getOrdinalNumber(participantPosition)} {getPositionEmoji(participantPosition - 1)}
+            Vous êtes {getOrdinalNumber(participantPosition)} {participantPosition <= 3 ? ["🥇", "🥈", "🥉"][participantPosition - 1] : "🎮"}
           </p>
         </div>
 
@@ -156,25 +127,7 @@ const Leaderboard = () => {
           <p className="text-purple-200">
             Pour connaître la date de sortie du prochain Escape Game SEO, suivez-moi sur les réseaux sociaux !
           </p>
-          
-          <div className="flex justify-center gap-4 flex-wrap">
-            <Button
-              onClick={() => window.open("https://x.com/BilalDestouches", "_blank")}
-              variant="outline"
-              className="hover-scale bg-white/10"
-            >
-              <Twitter className="mr-2" />
-              Twitter
-            </Button>
-            <Button
-              onClick={() => window.open("https://www.linkedin.com/in/sbdestouches/", "_blank")}
-              variant="outline"
-              className="hover-scale bg-white/10"
-            >
-              <Linkedin className="mr-2" />
-              LinkedIn
-            </Button>
-          </div>
+          <SocialLinks />
         </div>
 
         <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md text-center">
@@ -183,55 +136,15 @@ const Leaderboard = () => {
             Si vous avez aimé cet escape game, partagez-le avec vos amis et collègues.
             Cela nous encouragera à en créer d'autres !
           </p>
-          
-          <div className="flex justify-center gap-4 flex-wrap">
-            <Button
-              onClick={shareOnTwitter}
-              variant="outline"
-              className="hover-scale bg-white/10"
-            >
-              <Twitter className="mr-2" />
-              Twitter
-            </Button>
-            <Button
-              onClick={shareOnLinkedIn}
-              variant="outline"
-              className="hover-scale bg-white/10"
-            >
-              <Linkedin className="mr-2" />
-              LinkedIn
-            </Button>
-            <Button
-              onClick={shareOnWhatsApp}
-              variant="outline"
-              className="hover-scale bg-white/10"
-            >
-              <MessageCircle className="mr-2" />
-              WhatsApp
-            </Button>
-          </div>
+          <ShareButtons shareText={shareText} shareUrl={shareUrl} />
         </div>
 
         <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md">
           <h2 className="text-2xl font-semibold text-center mb-6">Classement 🏆</h2>
-          <ScrollArea className="h-[400px] rounded-lg">
-            <div className="space-y-2 pr-4">
-              {leaderboardData.map((entry, index) => (
-                <div 
-                  key={index} 
-                  className={`flex justify-between items-center p-4 rounded-lg transition-all duration-200 ${
-                    index < 3 ? 'bg-white/20' : 'bg-white/10'
-                  } hover:bg-white/30`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl w-8">{getPositionEmoji(index)}</span>
-                    <span className="text-lg font-medium">{entry.pseudo}</span>
-                  </div>
-                  <span className="text-lg font-mono">{formatTime(entry.time)}</span>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
+          <LeaderboardList 
+            leaderboardData={leaderboardData}
+            formatTime={formatTime}
+          />
         </div>
       </div>
     </div>
