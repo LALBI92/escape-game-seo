@@ -20,11 +20,17 @@ const LeaderboardBanner = () => {
 
     console.log('Leaderboard data:', data);
 
-    const positions = ['Meilleur score', 'Second', 'Troisième'];
+    const positions = [
+      { label: 'Meilleur score', emoji: '🏆' },
+      { label: 'Second', emoji: '🥈' },
+      { label: 'Troisième', emoji: '🥉' }
+    ];
+    
     const formattedData = data.map((player, index) => ({
-      position: positions[index],
+      position: positions[index].label,
       name: player.pseudo,
-      time: formatTime(player.time_seconds)
+      time: formatTime(player.time_seconds),
+      emoji: positions[index].emoji
     }));
 
     setLeaderboard(formattedData);
@@ -63,8 +69,8 @@ const LeaderboardBanner = () => {
   };
 
   const content = leaderboard.map(player => 
-    `${player.position} ${player.name} en ${player.time}`
-  ).join(" • ");
+    `${player.emoji} ${player.position} ${player.name} en ${player.time} ✨`
+  ).join(" ");
 
   useEffect(() => {
     const animation = setInterval(() => {
