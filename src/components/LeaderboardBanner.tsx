@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const LeaderboardBanner = () => {
   const [position, setPosition] = useState(0);
-  const [leaderboard, setLeaderboard] = useState<{ position: string; name: string; time: string }[]>([]);
+  const [leaderboard, setLeaderboard] = useState<{ position: string; name: string; time: string; emoji: string }[]>([]);
   
   const fetchLeaderboard = async () => {
     const { data, error } = await supabase
