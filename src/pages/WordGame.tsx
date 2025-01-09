@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { useGameTimer } from "@/hooks/useGameTimer";
+import { playSuccessSound } from "@/utils/sounds";
 
 interface WordSection {
   id: number;
@@ -43,6 +44,7 @@ const WordGame = () => {
     setAnswers(newAnswers);
 
     if (value.toLowerCase() === sections[index].word) {
+      playSuccessSound();
       toast.success("Bonne réponse !");
     } else if (value.length === sections[index].length && value.toLowerCase() !== sections[index].word) {
       toast.error("Mauvaise réponse, essayez encore !");

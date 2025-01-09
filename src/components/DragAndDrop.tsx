@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
+import { playUnlockSound } from '@/utils/sounds';
 
 interface DragAndDropProps {
   onSuccess: () => void;
@@ -47,6 +48,10 @@ export const DragAndDrop = ({ onSuccess }: DragAndDropProps) => {
     const allCorrect = animals.every(animal => 
       newMatches[animal.id] === animal.year
     );
+
+    if (allCorrect && !isCorrect) {
+      playUnlockSound();
+    }
 
     setIsCorrect(allCorrect);
   };
