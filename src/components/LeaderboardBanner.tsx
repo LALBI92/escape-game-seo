@@ -5,36 +5,54 @@ const LeaderboardBanner = () => {
   const [position, setPosition] = useState(0);
   const [leaderboard, setLeaderboard] = useState<{ position: string; name: string; time: string }[]>([]);
   
+  const fetchLeaderboard = async () => {
+    const { data, error } = await supabase
+      .from('participants')
+      .select('pseudo, time_seconds')
+      .gt('time_seconds', 0)
+      .order('time_seconds', { ascending: true })
+      .limit(5);
+
+    if (error) {
+      console.error('Error fetching leaderboard:', error);
+      return;
+    }
+
+    console.log('Leaderboard data:', data);
+
+    const formattedData = data.map((player, index) => ({
+      position: `${index + 1}${index === 0 ? 'er' : 'ème'}`,
+      name: player.pseudo,
+      time: formatTime(player.time_seconds)
+    }));
+
+    setLeaderboard(formattedData);
+  };
+
   useEffect(() => {
-    const fetchLeaderboard = async () => {
-      const { data, error } = await supabase
-        .from('participants')
-        .select('pseudo, time_seconds')
-        .gt('time_seconds', 0)
-        .order('time_seconds', { ascending: true })
-        .limit(5);
-
-      if (error) {
-        console.error('Error fetching leaderboard:', error);
-        return;
-      }
-
-      console.log('Leaderboard data:', data); // Debug log
-
-      const formattedData = data.map((player, index) => ({
-        position: `${index + 1}${index === 0 ? 'er' : 'ème'}`,
-        name: player.pseudo,
-        time: formatTime(player.time_seconds)
-      }));
-
-      setLeaderboard(formattedData);
-    };
-
+    // Initial fetch
     fetchLeaderboard();
     
-    // Refresh data every 30 seconds
-    const interval = setInterval(fetchLeaderboard, 30000);
-    return () => clearInterval(interval);
+    // Subscribe to realtime changes
+    const channel = supabase
+      .channel('leaderboard_changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*', // Listen to all changes (INSERT, UPDATE, DELETE)
+          schema: 'public',
+          table: 'participants'
+        },
+        () => {
+          console.log('Received realtime update, fetching new data...');
+          fetchLeaderboard();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const formatTime = (seconds: number) => {

@@ -15,40 +15,57 @@ const Leaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState<{ pseudo: string; time: number }[]>([]);
   const [participantPosition, setParticipantPosition] = useState(0);
 
+  const fetchLeaderboard = async () => {
+    console.log('Fetching leaderboard data...'); // Debug log
+    const { data, error } = await supabase
+      .from('participants')
+      .select('pseudo, time_seconds')
+      .gt('time_seconds', 0)
+      .order('time_seconds', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching leaderboard:', error);
+      toast.error("Erreur lors du chargement du classement");
+      return;
+    }
+
+    console.log('Fetched data:', data); // Debug log
+
+    setLeaderboardData(data.map(entry => ({
+      pseudo: entry.pseudo,
+      time: entry.time_seconds
+    })));
+
+    // Calculate participant position
+    if (finalTime > 0) {
+      const position = data.findIndex(entry => finalTime <= entry.time_seconds) + 1;
+      setParticipantPosition(position === 0 ? data.length + 1 : position);
+    }
+  };
+
   useEffect(() => {
-    const fetchLeaderboard = async () => {
-      console.log('Fetching leaderboard data...'); // Debug log
-      const { data, error } = await supabase
-        .from('participants')
-        .select('pseudo, time_seconds')
-        .gt('time_seconds', 0)
-        .order('time_seconds', { ascending: true });
-
-      if (error) {
-        console.error('Error fetching leaderboard:', error);
-        toast.error("Erreur lors du chargement du classement");
-        return;
-      }
-
-      console.log('Fetched data:', data); // Debug log
-
-      setLeaderboardData(data.map(entry => ({
-        pseudo: entry.pseudo,
-        time: entry.time_seconds
-      })));
-
-      // Calculate participant position
-      if (finalTime > 0) {
-        const position = data.findIndex(entry => finalTime <= entry.time_seconds) + 1;
-        setParticipantPosition(position === 0 ? data.length + 1 : position);
-      }
-    };
-
     fetchLeaderboard();
     
-    // Refresh data every 30 seconds
-    const interval = setInterval(fetchLeaderboard, 30000);
-    return () => clearInterval(interval);
+    // Subscribe to realtime changes
+    const channel = supabase
+      .channel('leaderboard_changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*', // Listen to all changes
+          schema: 'public',
+          table: 'participants'
+        },
+        () => {
+          console.log('Received realtime update, fetching new data...');
+          fetchLeaderboard();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [finalTime]);
 
   useEffect(() => {
