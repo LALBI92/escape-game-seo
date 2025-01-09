@@ -17,6 +17,7 @@ const Leaderboard = () => {
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
+      console.log('Fetching leaderboard data...'); // Debug log
       const { data, error } = await supabase
         .from('participants')
         .select('pseudo, time_seconds')
@@ -25,8 +26,11 @@ const Leaderboard = () => {
 
       if (error) {
         console.error('Error fetching leaderboard:', error);
+        toast.error("Erreur lors du chargement du classement");
         return;
       }
+
+      console.log('Fetched data:', data); // Debug log
 
       setLeaderboardData(data.map(entry => ({
         pseudo: entry.pseudo,
@@ -41,6 +45,10 @@ const Leaderboard = () => {
     };
 
     fetchLeaderboard();
+    
+    // Refresh data every 30 seconds
+    const interval = setInterval(fetchLeaderboard, 30000);
+    return () => clearInterval(interval);
   }, [finalTime]);
 
   useEffect(() => {
@@ -49,6 +57,8 @@ const Leaderboard = () => {
       if (!player || !finalTime) return;
 
       const { email } = JSON.parse(player);
+      
+      console.log('Updating player time:', { email, finalTime }); // Debug log
       
       try {
         const { error } = await supabase

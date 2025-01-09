@@ -10,7 +10,7 @@ const LeaderboardBanner = () => {
       const { data, error } = await supabase
         .from('participants')
         .select('pseudo, time_seconds')
-        .gt('time_seconds', 0) // Only get participants who have completed the game
+        .gt('time_seconds', 0)
         .order('time_seconds', { ascending: true })
         .limit(5);
 
@@ -18,6 +18,8 @@ const LeaderboardBanner = () => {
         console.error('Error fetching leaderboard:', error);
         return;
       }
+
+      console.log('Leaderboard data:', data); // Debug log
 
       const formattedData = data.map((player, index) => ({
         position: `${index + 1}${index === 0 ? 'er' : 'ème'}`,
@@ -29,6 +31,10 @@ const LeaderboardBanner = () => {
     };
 
     fetchLeaderboard();
+    
+    // Refresh data every 30 seconds
+    const interval = setInterval(fetchLeaderboard, 30000);
+    return () => clearInterval(interval);
   }, []);
 
   const formatTime = (seconds: number) => {
