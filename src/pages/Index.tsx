@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import LeaderboardBanner from "../components/LeaderboardBanner";
 
@@ -13,7 +13,11 @@ const Index = () => {
     e.preventDefault();
     
     if (!email || !name) {
-      toast.error("Veuillez remplir tous les champs");
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Veuillez remplir tous les champs"
+      });
       return;
     }
 
@@ -27,12 +31,19 @@ const Index = () => {
 
       if (pseudoError && pseudoError.code !== 'PGRST116') {
         console.error('Erreur lors de la vérification du pseudo:', pseudoError);
-        toast.error("Une erreur est survenue lors de la vérification du pseudo");
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Une erreur est survenue lors de la vérification du pseudo"
+        });
         return;
       }
 
       if (existingPseudo) {
-        toast.error("Ce pseudo est déjà utilisé. Veuillez en choisir un autre.", {
+        toast({
+          variant: "destructive",
+          title: "Pseudo déjà utilisé",
+          description: "Ce pseudo est déjà utilisé. Veuillez en choisir un autre.",
           duration: 5000,
         });
         return;
@@ -47,12 +58,19 @@ const Index = () => {
 
       if (emailError && emailError.code !== 'PGRST116') {
         console.error('Erreur lors de la vérification de l\'email:', emailError);
-        toast.error("Une erreur est survenue lors de la vérification de l'email");
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Une erreur est survenue lors de la vérification de l'email"
+        });
         return;
       }
 
       if (existingEmail) {
-        toast.error("Cet email a déjà participé au jeu. Vous ne pouvez participer qu'une seule fois.", {
+        toast({
+          variant: "destructive",
+          title: "Email déjà utilisé",
+          description: "Cet email a déjà participé au jeu. Vous ne pouvez participer qu'une seule fois.",
           duration: 5000,
         });
         return;
@@ -71,16 +89,27 @@ const Index = () => {
 
       if (insertError) {
         console.error('Erreur lors de l\'insertion:', insertError);
-        toast.error("Une erreur est survenue lors de l'inscription");
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Une erreur est survenue lors de l'inscription"
+        });
         return;
       }
 
       localStorage.setItem("player", JSON.stringify({ name, email }));
-      toast.success("Que l'enquête commence !");
+      toast({
+        title: "Succès",
+        description: "Que l'enquête commence !"
+      });
       navigate("/introduction");
     } catch (error) {
       console.error('Erreur détaillée:', error);
-      toast.error("Une erreur est survenue lors de l'inscription");
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'inscription"
+      });
     }
   };
 
