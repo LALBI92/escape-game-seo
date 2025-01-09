@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import LeaderboardBanner from "../components/LeaderboardBanner";
+import { Toaster } from "@/components/ui/toaster";
 
 const Index = () => {
   const [email, setEmail] = useState("");
@@ -194,6 +195,7 @@ const Index = () => {
       </div>
 
       <LeaderboardBanner />
+      <Toaster />
     </div>
   );
 };
