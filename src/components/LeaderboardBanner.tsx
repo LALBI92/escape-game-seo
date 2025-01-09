@@ -74,11 +74,17 @@ const LeaderboardBanner = () => {
 
   useEffect(() => {
     const animation = setInterval(() => {
-      setPosition(prev => (prev - 1) % (content.length * 20));
-    }, 50);
+      setPosition(prev => {
+        // Reset position when it reaches the negative of content width
+        if (prev <= -1000) {
+          return window.innerWidth;
+        }
+        return prev - 1;
+      });
+    }, 20);
 
     return () => clearInterval(animation);
-  }, [content.length]);
+  }, []);
 
   return (
     <div className="w-full bg-amber-400 text-gray-900 py-3 overflow-hidden font-medium">
@@ -86,7 +92,7 @@ const LeaderboardBanner = () => {
         className="whitespace-nowrap text-lg"
         style={{ 
           transform: `translateX(${position}px)`,
-          display: "inline-block"
+          transition: 'transform 0.1s linear'
         }}
       >
         {content + " " + content} {/* Duplicate content for seamless loop */}
