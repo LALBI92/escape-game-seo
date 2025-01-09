@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
+import { ArrowLeft } from "lucide-react";
 
 const Liste = () => {
   const navigate = useNavigate();
@@ -71,6 +72,15 @@ const Liste = () => {
 
       <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white p-8">
         <div className="max-w-6xl mx-auto">
+          <Button 
+            variant="outline"
+            onClick={() => navigate('/wordgame')}
+            className="mb-4"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Retour au jeu de mots
+          </Button>
+
           <Card className="p-6 animate-fade-up">
             <div className="flex justify-between items-center mb-8">
               <h1 className="text-3xl font-bold text-purple-800">

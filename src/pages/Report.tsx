@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
-import { X } from "lucide-react";
+import { X, ArrowLeft } from "lucide-react";
 
 const Report = () => {
   const navigate = useNavigate();
@@ -140,6 +140,15 @@ const Report = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white p-8">
       <div className="max-w-2xl mx-auto">
+        <Button 
+          variant="outline"
+          onClick={() => navigate('/success')}
+          className="mb-4"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Retour à la liste
+        </Button>
+
         <Card className="p-6 space-y-8 animate-fade-up relative">
           <div className="absolute top-4 right-4 font-mono text-sm bg-purple-100 px-2 py-1 rounded">
             {elapsedTime}
