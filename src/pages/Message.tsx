@@ -81,7 +81,7 @@ const Message = () => {
               <br /><br />
               Gagnez votre place pour le prochain bootcamp SEO qui aura lieu à Chamonix en décembre 2024.
               <br /><br />
-              Pour tenter votre chance, découvrez le mot caché sur cette page et envoyez-le moi par MP.
+              Pour tenter votre chance, découvrez le mot mystère sur cette page et envoyez-le moi par MP.
               <br /><br />
               Bonne chance à tous ! 🏔️ #SEO #Bootcamp #Chamonix
             </p>
