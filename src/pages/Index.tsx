@@ -19,26 +19,42 @@ const Index = () => {
 
     try {
       // Vérifions d'abord si le pseudo existe déjà
-      const { data: pseudoCheck } = await supabase
+      const { data: existingPseudo, error: pseudoError } = await supabase
         .from('participants')
         .select('pseudo')
         .eq('pseudo', name)
         .single();
 
-      if (pseudoCheck) {
-        toast.error("Ce pseudo est déjà utilisé. Veuillez en choisir un autre.");
+      if (pseudoError && pseudoError.code !== 'PGRST116') {
+        console.error('Erreur lors de la vérification du pseudo:', pseudoError);
+        toast.error("Une erreur est survenue lors de la vérification du pseudo");
+        return;
+      }
+
+      if (existingPseudo) {
+        toast.error("Ce pseudo est déjà utilisé. Veuillez en choisir un autre.", {
+          duration: 5000,
+        });
         return;
       }
 
       // Vérifions ensuite si l'email existe déjà
-      const { data: emailCheck } = await supabase
+      const { data: existingEmail, error: emailError } = await supabase
         .from('participants')
         .select('email')
         .eq('email', email)
         .single();
 
-      if (emailCheck) {
-        toast.error("Cet email a déjà participé au jeu. Vous ne pouvez participer qu'une seule fois.");
+      if (emailError && emailError.code !== 'PGRST116') {
+        console.error('Erreur lors de la vérification de l\'email:', emailError);
+        toast.error("Une erreur est survenue lors de la vérification de l'email");
+        return;
+      }
+
+      if (existingEmail) {
+        toast.error("Cet email a déjà participé au jeu. Vous ne pouvez participer qu'une seule fois.", {
+          duration: 5000,
+        });
         return;
       }
 
