@@ -12,6 +12,36 @@ const Leaderboard = () => {
     const savedTime = sessionStorage.getItem("gameTime");
     return savedTime ? parseInt(savedTime, 10) : 0;
   });
+  const [leaderboardData, setLeaderboardData] = useState<{ pseudo: string; time: number }[]>([]);
+  const [participantPosition, setParticipantPosition] = useState(0);
+
+  useEffect(() => {
+    const fetchLeaderboard = async () => {
+      const { data, error } = await supabase
+        .from('participants')
+        .select('pseudo, time_seconds')
+        .gt('time_seconds', 0)
+        .order('time_seconds', { ascending: true });
+
+      if (error) {
+        console.error('Error fetching leaderboard:', error);
+        return;
+      }
+
+      setLeaderboardData(data.map(entry => ({
+        pseudo: entry.pseudo,
+        time: entry.time_seconds
+      })));
+
+      // Calculate participant position
+      if (finalTime > 0) {
+        const position = data.findIndex(entry => finalTime <= entry.time_seconds) + 1;
+        setParticipantPosition(position === 0 ? data.length + 1 : position);
+      }
+    };
+
+    fetchLeaderboard();
+  }, [finalTime]);
 
   useEffect(() => {
     const updatePlayerTime = async () => {
@@ -49,49 +79,6 @@ const Leaderboard = () => {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const leaderboard = [
-    { pseudo: "Alice", time: 180 }, // 3:00
-    { pseudo: "Bob", time: 240 }, // 4:00
-    { pseudo: "Charlie", time: 300 }, // 5:00
-    { pseudo: "David", time: 320 }, // 5:20
-    { pseudo: "Eva", time: 340 }, // 5:40
-    { pseudo: "Frank", time: 360 }, // 6:00
-    { pseudo: "Grace", time: 380 }, // 6:20
-    { pseudo: "Henry", time: 400 }, // 6:40
-    { pseudo: "Isabelle", time: 420 }, // 7:00
-    { pseudo: "Jack", time: 440 }, // 7:20
-    { pseudo: "Karen", time: 460 }, // 7:40
-    { pseudo: "Liam", time: 480 }, // 8:00
-    { pseudo: "Maria", time: 500 }, // 8:20
-    { pseudo: "Noah", time: 520 }, // 8:40
-    { pseudo: "Olivia", time: 540 }, // 9:00
-    { pseudo: "Peter", time: 560 }, // 9:20
-    { pseudo: "Quinn", time: 580 }, // 9:40
-    { pseudo: "Rachel", time: 600 }, // 10:00
-    { pseudo: "Sam", time: 620 }, // 10:20
-    { pseudo: "Tina", time: 640 }, // 10:40
-    { pseudo: "Uma", time: 660 }, // 11:00
-    { pseudo: "Victor", time: 680 }, // 11:20
-    { pseudo: "Wendy", time: 700 }, // 11:40
-    { pseudo: "Xavier", time: 720 }, // 12:00
-    { pseudo: "Yara", time: 740 }, // 12:20
-    { pseudo: "Zack", time: 760 }, // 12:40
-    { pseudo: "Anna", time: 780 }, // 13:00
-    { pseudo: "Ben", time: 800 }, // 13:20
-    { pseudo: "Clara", time: 820 }, // 13:40
-    { pseudo: "Dan", time: 840 }, // 14:00
-  ];
-
-  const getParticipantPosition = () => {
-    let position = 1;
-    for (const entry of leaderboard) {
-      if (finalTime > entry.time) {
-        position++;
-      }
-    }
-    return position;
-  };
-
   const getPositionEmoji = (position: number) => {
     switch (position) {
       case 0:
@@ -109,7 +96,6 @@ const Leaderboard = () => {
     return n + (n === 1 ? "er" : "ème");
   };
 
-  const participantPosition = getParticipantPosition();
   const shareText = `Je suis arrivé ${getOrdinalNumber(participantPosition)} à "Crime au Bootcamp SEO". Si tu veux tenter de faire mieux : `;
   const shareUrl = window.location.origin;
 
@@ -198,12 +184,12 @@ const Leaderboard = () => {
             </Button>
           </div>
         </div>
-        
+
         <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md">
           <h2 className="text-2xl font-semibold text-center mb-6">Classement 🏆</h2>
           <ScrollArea className="h-[400px] rounded-lg">
             <div className="space-y-2 pr-4">
-              {leaderboard.map((entry, index) => (
+              {leaderboardData.map((entry, index) => (
                 <div 
                   key={index} 
                   className={`flex justify-between items-center p-4 rounded-lg transition-all duration-200 ${
