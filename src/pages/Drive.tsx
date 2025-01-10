@@ -23,7 +23,7 @@ const Drive = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    if (searchParams.has("123")) {
+    if (searchParams.has("param") && searchParams.get("param") === "seo") {
       setShowPassword(true);
     }
   }, [location]);
@@ -72,8 +72,8 @@ const Drive = () => {
         <div className="glass-card rounded-2xl p-8 space-y-8">
           <div className="relative aspect-video rounded-lg overflow-hidden">
             <img
-              src="/lovable-uploads/6971d9cf-7125-42c0-ac36-3ddb1cc8bafc.png"
-              alt="?123"
+              src="/lovable-uploads/6a48f7fd-16ec-474b-89a8-fb9a7bfb7b90.png"
+              alt="Minion scientist thinking about ?param=seo"
               className="object-contain w-full h-full"
             />
           </div>
