@@ -77,7 +77,7 @@ const Journal = () => {
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">Vendredi 23 décembre - Minuit</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Vendredi 23 décembre - 23h</h3>
               <p className="text-gray-700 leading-relaxed">
                 J&apos;ai trouvé un train pour demain matin, il faut que je file. Sur le Drive du Bootcamp j&apos;ai réussi à rentrer dans un fichier verrouillé... Ça sent pas bon pour moi, je savais que ce n&apos;était pas une erreur.
               </p>
