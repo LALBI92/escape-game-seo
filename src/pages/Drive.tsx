@@ -34,8 +34,9 @@ const Drive = () => {
     } else {
       toast({
         variant: "destructive",
-        title: "Mot de passe incorrect",
-        description: "Veuillez réessayer",
+        title: "Erreur",
+        description: "Le mot de passe est incorrect. Veuillez réessayer.",
+        duration: 3000,
       });
     }
   };
@@ -92,6 +93,11 @@ const Drive = () => {
                 placeholder="Entrez le mot de passe"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    handleNext();
+                  }
+                }}
               />
               <Button onClick={handleNext} className="w-full">
                 Valider
