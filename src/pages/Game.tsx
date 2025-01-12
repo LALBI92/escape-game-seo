@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 
 const Game = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [time, setTime] = useState(() => {
     const savedTime = sessionStorage.getItem("gameTime");
     return savedTime ? parseInt(savedTime, 10) : 0;
@@ -33,10 +34,13 @@ const Game = () => {
     if (currentStep === 1 && answer.toLowerCase() === "combinaison") {
       setCurrentStep(2);
       setAnswer("");
-      toast.success("Bravo ! Passons à l'étape suivante.");
       navigate("/chatgpt");
     } else if (currentStep === 1) {
-      toast.error("Ce n'est pas le bon mot. Essayez encore !");
+      toast({
+        variant: "destructive",
+        title: "Mot de passe incorrect",
+        description: "Veuillez réessayer",
+      });
     }
   };
 

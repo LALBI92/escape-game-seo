@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 import { useGameTimer } from "@/hooks/useGameTimer";
 import { playSuccessSound } from "@/utils/sounds";
 
@@ -17,6 +17,7 @@ interface WordSection {
 
 const WordGame = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [answers, setAnswers] = useState<string[]>([""]); 
   const [allCompleted, setAllCompleted] = useState(false);
   const time = useGameTimer();
@@ -45,9 +46,16 @@ const WordGame = () => {
 
     if (value.toLowerCase() === sections[index].word) {
       playSuccessSound();
-      toast.success("Bonne réponse !");
+      toast({
+        title: "Bravo !",
+        description: "Vous avez trouvé le bon mot !",
+      });
     } else if (value.length === sections[index].length && value.toLowerCase() !== sections[index].word) {
-      toast.error("Mauvaise réponse, essayez encore !");
+      toast({
+        variant: "destructive",
+        title: "Mot de passe incorrect",
+        description: "Veuillez réessayer",
+      });
     }
   };
 
