@@ -18,7 +18,7 @@ export const supabase = createClient<Database>(
       autoRefreshToken: true,
     },
     global: {
-      fetch: (...args) => {
+      fetch: (...args: Parameters<typeof fetch>) => {
         // Add logging for troubleshooting connection issues
         console.log('Supabase fetch request:', args[0]);
         return fetch(...args);
