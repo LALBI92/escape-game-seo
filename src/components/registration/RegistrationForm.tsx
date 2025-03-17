@@ -1,13 +1,16 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 
 const RegistrationForm = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +25,10 @@ const RegistrationForm = () => {
       return;
     }
 
+    setIsSubmitting(true);
+    
     try {
+      console.log("Checking if email exists...");
       // Vérifions d'abord si l'email existe déjà
       const { data: existingEmails, error: emailError } = await supabase
         .from('participants')
@@ -33,10 +39,11 @@ const RegistrationForm = () => {
         console.error('Erreur lors de la vérification de l\'email:', emailError);
         toast({
           variant: "destructive",
-          title: "Erreur",
-          description: "Une erreur est survenue lors de la vérification de l'email",
+          title: "Erreur de connexion",
+          description: "Impossible de se connecter à la base de données. Veuillez réessayer plus tard.",
           duration: 5000,
         });
+        setIsSubmitting(false);
         return;
       }
 
@@ -47,9 +54,11 @@ const RegistrationForm = () => {
           description: "Cet email a déjà participé au jeu. Vous ne pouvez participer qu'une seule fois.",
           duration: 5000,
         });
+        setIsSubmitting(false);
         return;
       }
 
+      console.log("Checking if pseudo exists...");
       // Vérifions ensuite si le pseudo existe déjà
       const { data: existingPseudos, error: pseudoError } = await supabase
         .from('participants')
@@ -60,10 +69,11 @@ const RegistrationForm = () => {
         console.error('Erreur lors de la vérification du pseudo:', pseudoError);
         toast({
           variant: "destructive",
-          title: "Erreur",
-          description: "Une erreur est survenue lors de la vérification du pseudo",
+          title: "Erreur de connexion",
+          description: "Impossible de se connecter à la base de données. Veuillez réessayer plus tard.",
           duration: 5000,
         });
+        setIsSubmitting(false);
         return;
       }
 
@@ -74,9 +84,11 @@ const RegistrationForm = () => {
           description: "Ce pseudo est déjà utilisé. Veuillez en choisir un autre.",
           duration: 5000,
         });
+        setIsSubmitting(false);
         return;
       }
 
+      console.log("Creating participant...");
       // Si les vérifications sont passées, on peut créer le participant
       const { error: insertError } = await supabase
         .from('participants')
@@ -92,10 +104,11 @@ const RegistrationForm = () => {
         console.error('Erreur lors de l\'insertion:', insertError);
         toast({
           variant: "destructive",
-          title: "Erreur",
-          description: "Une erreur est survenue lors de l'inscription",
+          title: "Erreur d'inscription",
+          description: "Une erreur est survenue lors de l'inscription. Veuillez réessayer.",
           duration: 5000,
         });
+        setIsSubmitting(false);
         return;
       }
 
@@ -114,6 +127,8 @@ const RegistrationForm = () => {
         description: "Une erreur est survenue lors de l'inscription",
         duration: 5000,
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -150,9 +165,10 @@ const RegistrationForm = () => {
 
         <button
           type="submit"
-          className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-medium hover:from-purple-600 hover:to-indigo-600 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+          disabled={isSubmitting}
+          className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-medium hover:from-purple-600 hover:to-indigo-600 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500/50 disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          Commencer le jeu
+          {isSubmitting ? "Inscription en cours..." : "Commencer le jeu"}
         </button>
       </form>
     </div>

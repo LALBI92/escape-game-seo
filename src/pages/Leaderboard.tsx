@@ -1,6 +1,7 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 import ShareButtons from "@/components/leaderboard/ShareButtons";
 import SocialLinks from "@/components/leaderboard/SocialLinks";
 import LeaderboardList from "@/components/leaderboard/LeaderboardList";
@@ -12,31 +13,52 @@ const Leaderboard = () => {
   });
   const [leaderboardData, setLeaderboardData] = useState<{ pseudo: string; time: number }[]>([]);
   const [participantPosition, setParticipantPosition] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const { toast } = useToast();
 
   const fetchLeaderboard = async () => {
     console.log('Fetching leaderboard data...');
-    const { data, error } = await supabase
-      .from('participants')
-      .select('pseudo, time_seconds')
-      .gt('time_seconds', 0)
-      .order('time_seconds', { ascending: true });
+    setIsLoading(true);
+    
+    try {
+      const { data, error } = await supabase
+        .from('participants')
+        .select('pseudo, time_seconds')
+        .gt('time_seconds', 0)
+        .order('time_seconds', { ascending: true });
 
-    if (error) {
-      console.error('Error fetching leaderboard:', error);
-      toast.error("Erreur lors du chargement du classement");
-      return;
-    }
+      if (error) {
+        console.error('Error fetching leaderboard:', error);
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Erreur lors du chargement du classement",
+          duration: 5000,
+        });
+        return;
+      }
 
-    console.log('Fetched data:', data);
+      console.log('Fetched data:', data);
 
-    setLeaderboardData(data.map(entry => ({
-      pseudo: entry.pseudo,
-      time: entry.time_seconds
-    })));
+      setLeaderboardData(data.map(entry => ({
+        pseudo: entry.pseudo,
+        time: entry.time_seconds
+      })));
 
-    if (finalTime > 0) {
-      const position = data.findIndex(entry => finalTime <= entry.time_seconds) + 1;
-      setParticipantPosition(position === 0 ? data.length + 1 : position);
+      if (finalTime > 0) {
+        const position = data.findIndex(entry => finalTime <= entry.time_seconds) + 1;
+        setParticipantPosition(position === 0 ? data.length + 1 : position);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Erreur lors du chargement du classement",
+        duration: 5000,
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,11 +91,11 @@ const Leaderboard = () => {
       const player = localStorage.getItem("player");
       if (!player || !finalTime) return;
 
-      const { email } = JSON.parse(player);
-      
-      console.log('Updating player time:', { email, finalTime });
-      
       try {
+        const { email } = JSON.parse(player);
+        
+        console.log('Updating player time:', { email, finalTime });
+        
         const { error } = await supabase
           .from('participants')
           .update({ time_seconds: finalTime })
@@ -81,15 +103,29 @@ const Leaderboard = () => {
 
         if (error) {
           console.error('Error updating time:', error);
-          toast.error("Erreur lors de la sauvegarde du score");
+          toast({
+            variant: "destructive",
+            title: "Erreur",
+            description: "Erreur lors de la sauvegarde du score",
+            duration: 5000,
+          });
           return;
         }
 
         console.log('Time updated successfully:', finalTime);
-        toast.success("Score sauvegardé !");
+        toast({
+          title: "Succès",
+          description: "Score sauvegardé !",
+          duration: 5000,
+        });
       } catch (error) {
         console.error('Error:', error);
-        toast.error("Erreur lors de la sauvegarde du score");
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Erreur lors de la sauvegarde du score",
+          duration: 5000,
+        });
       }
     };
 
@@ -141,10 +177,14 @@ const Leaderboard = () => {
 
         <div className="glass-card rounded-2xl p-8 space-y-6 bg-white/10 backdrop-blur-md">
           <h2 className="text-2xl font-semibold text-center mb-6">Classement 🏆</h2>
-          <LeaderboardList 
-            leaderboardData={leaderboardData}
-            formatTime={formatTime}
-          />
+          {isLoading ? (
+            <p className="text-center">Chargement du classement...</p>
+          ) : (
+            <LeaderboardList 
+              leaderboardData={leaderboardData}
+              formatTime={formatTime}
+            />
+          )}
         </div>
       </div>
     </div>

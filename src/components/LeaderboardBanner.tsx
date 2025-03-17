@@ -1,39 +1,48 @@
+
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 const LeaderboardBanner = () => {
   const [position, setPosition] = useState(0);
   const [leaderboard, setLeaderboard] = useState<{ position: string; name: string; time: string; emoji: string }[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   
   const fetchLeaderboard = async () => {
-    const { data, error } = await supabase
-      .from('participants')
-      .select('pseudo, time_seconds')
-      .gt('time_seconds', 0)
-      .order('time_seconds', { ascending: true })
-      .limit(3);
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('participants')
+        .select('pseudo, time_seconds')
+        .gt('time_seconds', 0)
+        .order('time_seconds', { ascending: true })
+        .limit(3);
 
-    if (error) {
-      console.error('Error fetching leaderboard:', error);
-      return;
+      if (error) {
+        console.error('Error fetching leaderboard:', error);
+        return;
+      }
+
+      console.log('Leaderboard data:', data);
+
+      const positions = [
+        { label: 'Meilleur score', emoji: '🏆' },
+        { label: 'Second', emoji: '🥈' },
+        { label: 'Troisième', emoji: '🥉' }
+      ];
+      
+      const formattedData = data.map((player, index) => ({
+        position: positions[index].label,
+        name: player.pseudo,
+        time: formatTime(player.time_seconds),
+        emoji: positions[index].emoji
+      }));
+
+      setLeaderboard(formattedData);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
     }
-
-    console.log('Leaderboard data:', data);
-
-    const positions = [
-      { label: 'Meilleur score', emoji: '🏆' },
-      { label: 'Second', emoji: '🥈' },
-      { label: 'Troisième', emoji: '🥉' }
-    ];
-    
-    const formattedData = data.map((player, index) => ({
-      position: positions[index].label,
-      name: player.pseudo,
-      time: formatTime(player.time_seconds),
-      emoji: positions[index].emoji
-    }));
-
-    setLeaderboard(formattedData);
   };
 
   useEffect(() => {
@@ -68,9 +77,13 @@ const LeaderboardBanner = () => {
     return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
   };
 
-  const content = leaderboard.map(player => 
-    `${player.emoji} ${player.position} ${player.name} en ${player.time} ✨`
-  ).join(" ");
+  const content = leaderboard.length > 0 
+    ? leaderboard.map(player => 
+        `${player.emoji} ${player.position} ${player.name} en ${player.time} ✨`
+      ).join(" ")
+    : isLoading 
+      ? "Chargement du classement..." 
+      : "Participez pour apparaître dans le classement! ✨";
 
   useEffect(() => {
     const animation = setInterval(() => {
