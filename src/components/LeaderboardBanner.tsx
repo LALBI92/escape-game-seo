@@ -1,15 +1,28 @@
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase, testSupabaseConnection } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const LeaderboardBanner = () => {
   const [position, setPosition] = useState(0);
   const [leaderboard, setLeaderboard] = useState<{ position: string; name: string; time: string; emoji: string }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [connectionStatus, setConnectionStatus] = useState<'checking' | 'connected' | 'failed'>('checking');
   
   const fetchLeaderboard = async () => {
     setIsLoading(true);
     try {
+      // Test connection first
+      const connectionTest = await testSupabaseConnection();
+      if (!connectionTest.success) {
+        console.error('Database connection failed before fetching leaderboard');
+        setConnectionStatus('failed');
+        setIsLoading(false);
+        return;
+      }
+      
+      setConnectionStatus('connected');
+      
       const { data, error } = await supabase
         .from('participants')
         .select('pseudo, time_seconds')
@@ -40,6 +53,7 @@ const LeaderboardBanner = () => {
       setLeaderboard(formattedData);
     } catch (error) {
       console.error('Error:', error);
+      setConnectionStatus('failed');
     } finally {
       setIsLoading(false);
     }
@@ -64,7 +78,9 @@ const LeaderboardBanner = () => {
           fetchLeaderboard();
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        console.log('Subscription status:', status);
+      });
 
     return () => {
       supabase.removeChannel(channel);
@@ -77,13 +93,19 @@ const LeaderboardBanner = () => {
     return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
   };
 
-  const content = leaderboard.length > 0 
-    ? leaderboard.map(player => 
-        `${player.emoji} ${player.position} ${player.name} en ${player.time} ✨`
-      ).join(" ")
-    : isLoading 
-      ? "Chargement du classement..." 
-      : "Participez pour apparaître dans le classement! ✨";
+  let content = '';
+  
+  if (isLoading) {
+    content = "Chargement du classement...";
+  } else if (connectionStatus === 'failed') {
+    content = "Impossible de se connecter à la base de données. Veuillez réessayer plus tard. ⚠️";
+  } else if (leaderboard.length > 0) {
+    content = leaderboard.map(player => 
+      `${player.emoji} ${player.position} ${player.name} en ${player.time} ✨`
+    ).join(" ");
+  } else {
+    content = "Participez pour apparaître dans le classement! ✨";
+  }
 
   useEffect(() => {
     const animation = setInterval(() => {
@@ -101,15 +123,21 @@ const LeaderboardBanner = () => {
 
   return (
     <div className="w-full bg-amber-400 text-gray-900 py-3 overflow-hidden font-medium">
-      <div 
-        className="whitespace-nowrap text-lg"
-        style={{ 
-          transform: `translateX(${position}px)`,
-          transition: 'transform 0.1s linear'
-        }}
-      >
-        {content + " " + content} {/* Duplicate content for seamless loop */}
-      </div>
+      {isLoading ? (
+        <div className="flex items-center justify-center">
+          <Skeleton className="h-6 w-3/4 bg-amber-300/50" />
+        </div>
+      ) : (
+        <div 
+          className="whitespace-nowrap text-lg"
+          style={{ 
+            transform: `translateX(${position}px)`,
+            transition: 'transform 0.1s linear'
+          }}
+        >
+          {content + " " + content} {/* Duplicate content for seamless loop */}
+        </div>
+      )}
     </div>
   );
 };
